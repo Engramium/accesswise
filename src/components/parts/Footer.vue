@@ -99,4 +99,4 @@ import { StarFilled } from "@element-plus/icons-vue";
     margin: 10px 0;
   }
 }
-</style>../../utils/data
+</style>

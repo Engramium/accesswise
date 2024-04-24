@@ -24,7 +24,7 @@ const getSettings = () => {
   });
 };
 
-getSettings();
+// getSettings();
 </script>
 
 <template>

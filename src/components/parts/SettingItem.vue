@@ -63,7 +63,7 @@ const changeSetting = (event, content) => {
 
     <el-checkbox-group
       class="setting-input"
-      v-if="content.input == 'checkbox'"
+      v-if="content.type == 'checkbox'"
       :model-value="modelValue"
       @change="changeSetting($event, content)"
     >
@@ -73,7 +73,7 @@ const changeSetting = (event, content) => {
     </el-checkbox-group>
 
     <el-select
-      v-if="content.input == 'select'"
+      v-if="content.type == 'select'"
       class="m-2"
       placeholder="Select"
       size="large"
@@ -116,4 +116,4 @@ const changeSetting = (event, content) => {
 .link-item {
   margin: 10px 20px;
 }
-</style>../../utils/data
+</style>

@@ -69,7 +69,6 @@ watch(route, () => {
 
       img {
         width: 144px !important;
-        height: 37px;
       }
 
       p {
@@ -119,4 +118,4 @@ watch(route, () => {
     }
   }
 }
-</style>../../utils/data
+</style>

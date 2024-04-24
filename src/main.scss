@@ -25,6 +25,11 @@
     .pointer {
       cursor: pointer;
     }
+
+    input {
+      box-shadow: none;
+      border: none;
+    }
   }
 
   #wpwrap {

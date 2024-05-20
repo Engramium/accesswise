@@ -42,6 +42,7 @@ class Assets {
             'plugin_path' => ACCESSWISE_PATH,
             'plugin_version' => ACCESSWISE_VERSION,
             'admin_ajax' => admin_url('admin-ajax.php'),
+            'rest_url' => rest_url('/'),
             'nonce' => wp_create_nonce('accesswise_nonce'),
         ]);
     }

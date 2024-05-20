@@ -25,6 +25,19 @@ const getSettings = () => {
 };
 
 getSettings();
+
+const getWpPages = () => {
+  const res = fn.fetchPublicUrl(accesswise.rest_url + "wp/v2/pages", 'get');
+  res.then(response => {
+    let formatPages = { default: 'Default'};
+    response.forEach(element => {
+      formatPages[element.slug] = element.title.rendered
+    });
+    data.pages = formatPages;
+  })
+};
+
+getWpPages();
 </script>
 
 <template>
@@ -61,4 +74,3 @@ getSettings();
   }
 }
 </style>
-./utils/data

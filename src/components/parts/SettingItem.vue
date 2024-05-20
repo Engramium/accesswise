@@ -116,4 +116,4 @@ const changeSetting = (event, content) => {
 .link-item {
   margin: 10px 20px;
 }
-</style>../../utils/data
+</style>

@@ -3,8 +3,16 @@ import Welcome from "../components/Welcome.vue";
 import Settings from "../components/Settings.vue";
 
 const routes = [
-    { path: '/', component: Welcome },
-    { path: '/settings', component: Settings },
+    {
+        path: '/',
+        name: 'welcome',
+        component: Welcome
+    },
+    {
+        path: '/settings',
+        name: 'settings',
+        component: Settings
+    },
 ]
 
 const router = createRouter({

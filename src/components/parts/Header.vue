@@ -6,9 +6,9 @@ import Help from "./Help.vue";
 import menuFix from '../../utils/admin-menu-fix.js'
 
 const route = useRoute();
-data.currentRoute = route.fullPath;
+data.currentRouteName = route.name;
 watch(route, () => {
-  data.currentRoute = route.fullPath;
+  data.currentRouteName = route.name;
   menuFix('accesswise-settings');
 });
 
@@ -29,16 +29,16 @@ watch(route, () => {
         <div class="tabs">
           <router-link
             to="/"
-            :class="data.currentRoute == '/' ? 'menu-item active' : 'menu-item'"
-            @click="data.currentRoute = '/'"
+            :class="data.currentRouteName == 'welcome' ? 'menu-item active' : 'menu-item'"
+            @click="data.currentRouteName = 'welcome'"
             >{{ __("Welcome", "accesswise") }}</router-link
           >
           <router-link
             to="/settings"
             :class="
-              data.currentRoute == '/settings' ? 'menu-item active' : 'menu-item'
+              data.currentRouteName == 'settings' ? 'menu-item active' : 'menu-item'
             "
-            @click="data.currentRoute = '/settings'"
+            @click="data.currentRouteName = 'settings'"
             >{{ __("Settings", "accesswise") }}</router-link
           >
         </div>
@@ -119,4 +119,4 @@ watch(route, () => {
     }
   }
 }
-</style>../../utils/data
+</style>

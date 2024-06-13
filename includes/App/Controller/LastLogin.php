@@ -36,7 +36,7 @@ class LastLogin {
     }
 
     public function add_last_login_column( $columns ) {
-        $columns['aw_last_login'] = 'Last Login';
+        $columns['aw_last_login'] = esc_html__( 'Last Login', 'accesswise' );
 
         return $columns;
     }

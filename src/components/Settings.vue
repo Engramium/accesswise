@@ -72,15 +72,15 @@ const updateSetting = (content) => {
 
   let status = "";
   if ((content.status == false || content.status == true) && typeof content.status == "boolean") {
-    status = content.status ? "Enabled" : "Disabled";
+    status = content.status ? wp.i18n.__('Enabled', 'accesswise') : wp.i18n.__('Disabled', 'accesswise');
   } else {
     if (content.currentClick == null) {
       status = content.feature.options[ content.status ];
     } else {
       if(content.status.includes(content.currentClick)) {
-        status = `Enabled: ${content.feature.options[ content.currentClick ]}`;
+        status = `${wp.i18n.__('Enabled:', 'accesswise')} ${content.feature.options[ content.currentClick ]}`;
       } else {
-        status = `Disabled: ${content.feature.options[ content.currentClick ]}`;
+        status = `${wp.i18n.__('Disabled:', 'accesswise')} ${content.feature.options[ content.currentClick ]}`;
       }
     }
   }
@@ -90,14 +90,14 @@ const updateSetting = (content) => {
   res.then((response) => {
     if (response.status) {
       ElNotification({
-        title: "Success",
+        title: wp.i18n.__('Success', 'accesswise'),
         message: msg,
         type: "success",
         offset: 50,
       });
     } else {
       ElNotification({
-        title: "Error",
+        title: wp.i18n.__('Error', 'accesswise'),
         message: response.msg,
         type: "error",
         offset: 50,

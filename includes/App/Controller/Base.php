@@ -31,5 +31,6 @@ class Base {
         $this->settings = Settings::instance()->get_settings();
         LastLogin::instance()->init();
         Redirection::instance()->init();
+        Toolbar::instance()->init();
     }
 }

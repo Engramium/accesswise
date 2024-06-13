@@ -31,7 +31,7 @@ const getWpPages = () => {
   res.then(response => {
     let formatPages = { default: 'Default'};
     response.forEach(element => {
-      formatPages[element.slug] = element.title.rendered
+      formatPages[element.id] = element.title.rendered
     });
     data.pages = formatPages;
   })

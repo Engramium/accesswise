@@ -18,6 +18,8 @@ class Base {
 
     use \Engramium\Accesswise\Traits\Singleton;
 
+    public $settings;
+
     /**
      * initialization function
      *
@@ -26,9 +28,8 @@ class Base {
      * @return void
      */
     public function init() {
-        $settings = Settings::instance()->get_settings();
-        if ( is_array( $settings['generals']['when_last_login'] ) && in_array( 'show_last_login', $settings['generals']['when_last_login'] ) ) {
-            LastLogin::instance()->init();
-        }
+        $this->settings = Settings::instance()->get_settings();
+        LastLogin::instance()->init();
+        Redirection::instance()->init();
     }
 }

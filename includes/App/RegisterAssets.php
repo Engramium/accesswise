@@ -79,7 +79,7 @@ class RegisterAssets {
         if (!empty($env)) {
             // $this->add_script_to_auto_reload($env);
             $port = intval(isset($env['VITE_PORT']) ? $env['VITE_PORT'] : 4000);
-            $main_src = "//localhost:{$port}/src/main.js";
+            $main_src = "http://localhost:{$port}/src/main.js";
             $version = time();
         } else {
             $main_src = ACCESSWISE_URL . 'dist/assets/index.js';

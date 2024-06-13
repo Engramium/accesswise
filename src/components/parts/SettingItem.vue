@@ -6,9 +6,12 @@ import { QuestionFilled } from "@element-plus/icons-vue";
 const props = defineProps(["modelValue", "content"]);
 const emits = defineEmits(["update:modelValue", "updateSetting"]);
 
+const currentClick = ref(null);
+
 const changeSetting = (event, content) => {
   emits("update:modelValue", event);
-  emits("updateSetting", { feature: content, status: event });
+  emits("updateSetting", { feature: content, status: event, currentClick: currentClick.value });
+  currentClick.value = null;
 };
 </script>
 
@@ -68,7 +71,7 @@ const changeSetting = (event, content) => {
       @change="changeSetting($event, content)"
     >
       <div v-for="(item, key) in content.options" :key="key">
-        <el-checkbox :label="item" :value="key" />
+        <el-checkbox @click="currentClick=key" :label="item" :value="key" />
       </div>
     </el-checkbox-group>
 

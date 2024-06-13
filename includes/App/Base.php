@@ -22,6 +22,7 @@ class Base {
      * @since 1.0.0
      */
     public function init() {
+        Controller\Base::instance()->init();
         RegisterAssets::instance()->init();
         AjaxHandler::instance()->init();
     }

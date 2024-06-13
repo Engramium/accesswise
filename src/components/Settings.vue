@@ -46,7 +46,7 @@ const getSettingsFields = () => {
         helpUrl: "#",
         helpText: wp.i18n.__("When Last Login", "accesswise"),
         options: {
-          enable: wp.i18n.__("Enable", "accesswise")
+          show_last_login: wp.i18n.__("Show Last login in users", "accesswise")
         },
       },
       right_click: {
@@ -71,10 +71,18 @@ const updateSetting = (content) => {
   });
 
   let status = "";
-  if (content.status == false || content.status == true) {
+  if ((content.status == false || content.status == true) && typeof content.status == "boolean") {
     status = content.status ? "Enabled" : "Disabled";
   } else {
-    status = content.feature.options[ content.status ];
+    if (content.currentClick == null) {
+      status = content.feature.options[ content.status ];
+    } else {
+      if(content.status.includes(content.currentClick)) {
+        status = `Enabled: ${content.feature.options[ content.currentClick ]}`;
+      } else {
+        status = `Disabled: ${content.feature.options[ content.currentClick ]}`;
+      }
+    }
   }
 
   let msg = `${content.feature.title}: ${status}`;
@@ -104,7 +112,7 @@ const updateSetting = (content) => {
       <div class="feature-content">
         <div class="grid">
           <div v-for="(general, index) in getSettingsFields().generals" :key="index" class="grid-item">
-            <SettingItem @update-setting="updateSetting" :content="general" v-model="data.settings.generals[ index ]" />
+            <SettingItem @update-setting="updateSetting" :content="general" v-model="data.settings.generals[index]" />
           </div>
         </div>
       </div>

@@ -12,9 +12,9 @@ const getSettingsFields = () => {
         helpUrl: "#",
         helpText: wp.i18n.__("The admin Toolbar is a horizontal black bar at the top of the screen.", "accesswise"),
         options: {
-          logged_in_admins: wp.i18n.__("Show the Toolbar for logged-in admins", "accesswise"),
-          logged_in_members: wp.i18n.__("Show the Toolbar for logged-in members (non-admins)", "accesswise"),
-          logged_out_users: wp.i18n.__("Show the Toolbar for logged-out users", "accesswise"),
+          hide_from_admins: wp.i18n.__("Hide the Toolbar from admins", "accesswise"),
+          hide_from_non_admins: wp.i18n.__("Hide the Toolbar from members (non-admins)", "accesswise"),
+          hide_from_logged_out_users: wp.i18n.__("Hide the Toolbar from logged-out users", "accesswise"),
         }
       },
       redirection_after_login: {

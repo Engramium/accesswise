@@ -31,10 +31,10 @@ class Toolbar {
     }
 
     public function hide_admin_bar() {
-        if ( current_user_can( 'administrator' ) && is_array( $this->general_settings['toolbar'] ) && in_array( 'logged_in_admins', $this->general_settings['toolbar'] ) ) {
+        if ( current_user_can( 'administrator' ) && is_array( $this->general_settings['toolbar'] ) && in_array( 'hide_from_admins', $this->general_settings['toolbar'] ) ) {
             add_filter( 'show_admin_bar', '__return_false' );
         }
-        if ( ( ! current_user_can( 'administrator' ) ) && is_array( $this->general_settings['toolbar'] ) && in_array( 'logged_in_members', $this->general_settings['toolbar'] ) ) {
+        if ( ( ! current_user_can( 'administrator' ) ) && is_array( $this->general_settings['toolbar'] ) && in_array( 'hide_from_non_admins', $this->general_settings['toolbar'] ) ) {
             add_filter( 'show_admin_bar', '__return_false' );
         }
     }

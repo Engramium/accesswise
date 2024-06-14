@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-04-03T21:22:44+00:00\n"
+"POT-Creation-Date: 2024-06-14T20:53:11+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: accesswise\n"
@@ -45,6 +45,18 @@ msgstr ""
 #: includes/Dashboard/AdminMenu.php:54
 #: dist/assets/index.js:29
 msgid "Settings"
+msgstr ""
+
+#: includes/App/Controller/LastLogin.php:44
+msgid "Last Login"
+msgstr ""
+
+#: includes/App/Controller/Toolbar.php:56
+msgid "Log In"
+msgstr ""
+
+#: includes/App/Controller/Toolbar.php:62
+msgid "Register"
 msgstr ""
 
 #: includes/Dashboard/AdminMenu.php:53
@@ -153,7 +165,7 @@ msgid "Show the Toolbar for logged-in members (non-admins)"
 msgstr ""
 
 #: dist/assets/index.js:29
-msgid "Show the Toolbar for logged-out users"
+msgid "Show the Toolbar for logged out users"
 msgstr ""
 
 #: dist/assets/index.js:29
@@ -162,18 +174,6 @@ msgstr ""
 
 #: dist/assets/index.js:29
 msgid "Forward to your preferred page or post type, depending on the user's logged-in state."
-msgstr ""
-
-#: dist/assets/index.js:29
-msgid "Default"
-msgstr ""
-
-#: dist/assets/index.js:29
-msgid "Custom"
-msgstr ""
-
-#: dist/assets/index.js:29
-msgid "Page 1"
 msgstr ""
 
 #: dist/assets/index.js:29
@@ -201,7 +201,7 @@ msgid "When Last Login"
 msgstr ""
 
 #: dist/assets/index.js:29
-msgid "Enable"
+msgid "Show Last login in users"
 msgstr ""
 
 #: dist/assets/index.js:29
@@ -213,9 +213,33 @@ msgid "Regardless of this setting, this will not be impact for the Administrator
 msgstr ""
 
 #: dist/assets/index.js:29
+msgid "Disable Right Click"
+msgstr ""
+
+#: dist/assets/index.js:29
+msgid "Disable Copy"
+msgstr ""
+
+#: dist/assets/index.js:29
 msgid "Enabled"
 msgstr ""
 
 #: dist/assets/index.js:29
-msgid "Disable"
+msgid "Disabled"
+msgstr ""
+
+#: dist/assets/index.js:29
+msgid "Enabled:"
+msgstr ""
+
+#: dist/assets/index.js:29
+msgid "Disabled:"
+msgstr ""
+
+#: dist/assets/index.js:29
+msgid "Success"
+msgstr ""
+
+#: dist/assets/index.js:29
+msgid "Error"
 msgstr ""

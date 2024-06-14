@@ -19,13 +19,18 @@ class Settings {
 
     public function get_settings() {
         $defaults = $this->get_default_settings();
-        $quick_toggles = get_option("{$this->settings_key}__settings", []);
-        return array_replace_recursive($defaults, $quick_toggles);
+        $quick_toggles = get_option($this->settings_key, []);
+
+        if (empty($quick_toggles)) {
+            return $defaults;
+        }
+
+        return $quick_toggles;
     }
 
     public function update_settings($data) {
         $data = $this->sanitize_inputs($data);
-        $quick_toggles = update_option("{$this->settings_key}__settings", $data, true);
+        $quick_toggles = update_option($this->settings_key, $data, true);
         return $quick_toggles;
     }
 
@@ -43,7 +48,7 @@ class Settings {
     public function get_default_settings() {
         return [
             'generals' => [
-                'toolbar' => [],
+                'toolbar' => ['show_for_admins', 'show_for_non_admins'],
                 'redirection_after_login' => 'default',
                 'redirection_after_logout' => 'default',
                 'private_website' => [],

@@ -27,7 +27,7 @@ class LastLogin {
      */
     public function init() {
         $this->general_settings = Base::instance()->settings['generals'];
-        if ( is_array( $this->general_settings['when_last_login'] ) && in_array( 'show_last_login', $this->general_settings['when_last_login'] ) ) {
+        if ( isset( $this->general_settings['when_last_login'] ) && is_array( $this->general_settings['when_last_login'] ) && in_array( 'show_last_login', $this->general_settings['when_last_login'] ) ) {
             add_action( 'wp_login', [$this, 'track_last_login'], 10, 2 );
             add_filter( 'manage_users_columns', [$this, 'add_last_login_column'] );
             add_action( 'manage_users_custom_column', [$this, 'add_last_login_column_data'], 10, 3 );

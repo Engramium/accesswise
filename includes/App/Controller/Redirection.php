@@ -27,14 +27,16 @@ class Redirection {
      */
     public function init() {
         $this->general_settings = Base::instance()->settings['generals'];
-        if ( 'default' !== $this->general_settings['redirection_after_login'] ) {
+
+        if ( isset( $this->general_settings['redirection_after_login'] ) && 'default' !== $this->general_settings['redirection_after_login'] ) {
             add_filter( 'login_redirect', [$this, 'login_redirection'], PHP_INT_MAX, 3 );
         }
-        if ( 'default' !== $this->general_settings['redirection_after_logout'] ) {
+        
+        if ( isset( $this->general_settings['redirection_after_logout'] ) && 'default' !== $this->general_settings['redirection_after_logout'] ) {
             add_action( 'wp_logout', [$this, 'logout_redirection'], PHP_INT_MAX );
         }
 
-        if ( is_array( $this->general_settings['private_website'] ) && in_array( 'logged_in_users', $this->general_settings['private_website'] ) ) {
+        if ( isset( $this->general_settings['private_website'] ) && is_array( $this->general_settings['private_website'] ) && in_array( 'logged_in_users', $this->general_settings['private_website'] ) ) {
             add_action( 'template_redirect', [$this, 'restrict_access_to_logged_in_users'], PHP_INT_MAX );
         }
 

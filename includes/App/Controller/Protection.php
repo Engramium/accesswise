@@ -33,7 +33,7 @@ class Protection {
 
     public function insert_in_header() {
         if ( ! current_user_can( 'administrator' ) ) {
-            if ( is_array( $this->general_settings['right_click'] ) && in_array( 'disable_copy', $this->general_settings['right_click'] ) ) {
+            if ( isset( $this->general_settings['right_click'] ) && is_array( $this->general_settings['right_click'] ) && in_array( 'disable_copy', $this->general_settings['right_click'] ) ) {
                 echo "
                 <style type='text/css'>
                     body {
@@ -49,8 +49,8 @@ class Protection {
     }
 
     public function insert_in_footer() {
-        if ( ! current_user_can( 'administrator' ) ) {
-            if ( is_array( $this->general_settings['right_click'] ) && in_array( 'disable_copy', $this->general_settings['right_click'] ) ) {
+        if ( ! current_user_can( 'administrator' ) && isset( $this->general_settings['right_click'] ) && is_array( $this->general_settings['right_click'] ) ) {
+            if ( in_array( 'disable_copy', $this->general_settings['right_click'] ) ) {
                 echo "
                 <script type='text/javascript'>
                     document.addEventListener('DOMContentLoaded', function() {
@@ -78,7 +78,7 @@ class Protection {
                 </script>
                 ";
             }
-            if ( is_array( $this->general_settings['right_click'] ) && in_array( 'disable_right_click', $this->general_settings['right_click'] ) ) {
+            if ( in_array( 'disable_right_click', $this->general_settings['right_click'] ) ) {
                 echo "
                 <script type='text/javascript'>
                     document.addEventListener('DOMContentLoaded', function() {

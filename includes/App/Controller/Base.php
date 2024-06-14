@@ -32,5 +32,6 @@ class Base {
         LastLogin::instance()->init();
         Redirection::instance()->init();
         Toolbar::instance()->init();
+        Protection::instance()->init();
     }
 }

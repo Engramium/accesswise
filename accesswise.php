@@ -2,7 +2,7 @@
 /*
 Plugin Name: AccessWise
 Plugin URI: https://wordpress.org/plugins/accesswise/
-Description: Power to restrict your website and it's content via Age Gate, Force Login, Disable Right click
+Description: Power to restrict your website and it's content
 Version: 1.0.0
 Author: Engramium
 Author URI: https://engramium.com

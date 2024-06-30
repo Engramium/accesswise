@@ -1,10 +1,10 @@
-=== Accesswise - Power to restrict your website and it's content via Age Gate, Force Login, Disable Right click ===
+=== Accesswise - Power to restrict your website and it's content ===
 Plugin Name: Accesswise
 Version: 1.0.0
 Author: engramium
 Author URI: https://engramium.com/
 Contributors: engramium
-Tags:  age verification, force login, registered only, copy protection, disable right click
+Tags:  protected, restricted, content-protection, toolbar, last-login
 Requires at least: 5.0
 Tested up to: 6.5
 Requires PHP: 7.4
@@ -16,29 +16,40 @@ Show each website visitor a quick age verification screen before using the site.
 
 == Description ==
 
-AccessWise, the plugin that lets you restrict or control access of your website visitors easily. It currently has three default systems or gate to give you the complete control over your website content: 
+AccessWise, the plugin that lets you restrict or control access of your website visitors easily. 
 
-* Age Verification
-* Force Login
-* Disable Right Click for Copy/Paste Prevention
+= ✨ FEATURES ✨ =
 
-=  Age Gate: Age Verification  =
-Add an age verification pop-up before a visitor wants to enter your website. If verified, the visitor will be able to access the website content. Otherwise, a message will appear and the visitor wonâ€™t be able to access it. A cookie will remember the response and will grant or reject the access accordingly for the visits afterward. For age-sensitive industries i.e. websites dealing with alcohol, tobacco, gambling, and more, this age verification option of AccessWise can be the easiest solution.
+Toolbar ( The admin Toolbar is a horizontal black bar at the top of the screen. ):
+		-Show the Toolbar for logged-in admins
+		-Show the Toolbar for logged-in members (non-admins)
+		-Show the Toolbar for logged-out users         
 
-=  Force Users To Login Before Viewing Website Content  =
-Preserve your valuable website content for the registered users only. This is the most needed feature for any membership website. So, if you want to make your website content exclusive, use the Login/Register Based Restriction feature of AccessWise. Give access to your web pages to the logged in users only. It will help to collect more members for a website and keep your content secure from public access.
+Redirection: ( Forward to your preferred page or post type, depending on the user's logged-in or logged-out state. )
+		After Login: 
+		After Logout:
+
+=   Private Website  =
+AccessWise has a quick setting for locking down the entire site as a private network, so that logged-out users won’t be able to access anything from the site unless they log in. 
+
 
 =  Prevent Text Selection and Copy/Paste on Your WordPress Site  =
-Need to stop people stealing content from your website? Use this Right-Click disabler on your website. When someone will try to select texts or other content from your site, they wonâ€™t be able to do it. Because the right-click will be disabled completely for your website. You can show a message if you want. Thus you can protect your valuable content without any coding, just with a few clicks.
+Need to stop people stealing content from your website? Use this Right-Click disabler on your website. When someone will try to select texts or other content from your site, they will not be able to do it. Because the right-click will be disabled completely for your website. 
 
+== Frequently Asked Questions ==
+= Does it work with any theme?
+Absolutely! It will work with any theme where WordPress core standards have been maintained.
 
 == Screenshots ==
 1. AccessWise Core Features
-2. Age Gate
-3. Force Login
-4. Disable Right click
 
 == Changelog ==
+
+= v1.0.0 ( June 30, 2024 ) =
+- **Update:** Updated the full plugin structure
+- **New:** Added Toolbar
+- **New:** Added Redirection
+- **New:** Added Private website
 
 = v0.0.0.1 ( 2022 ) =
 

@@ -5,8 +5,8 @@
   "description": "Power to restrict your website and it's content via Age Gate, Force Login, Disable Right click",
   "scripts": {
     "dev": "vite",
+    "build:assets": "vite build",
     "build": "composer build && vite build",
-    "dev-build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "wp-cli-pot": "wp i18n make-pot . i18n/accesswise.pot",

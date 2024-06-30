@@ -18,7 +18,7 @@ watch(route, () => {
     <div class="menu-bar">
       <div class="logo-wrap">
         <img
-          :src="accesswise.plugin_url + 'public/logo/main-logo.png'"
+          :src="accesswise.plugin_url + 'public/logo/main-logo.svg'"
           alt="Accesswise Main Logo"
         />
         <el-tag :type="'danger'" effect="plain" round
@@ -68,8 +68,8 @@ watch(route, () => {
       gap: 15px;
 
       img {
-        width: 144px !important;
-        height: 37px;
+        width: 120px !important;
+        height: 80px;
       }
 
       p {

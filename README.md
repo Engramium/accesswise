@@ -1,5 +1,5 @@
-# Accesswise
-Power to restrict your website and it's content via Age Gate, Force Login, Disable Right click
+# AccessWise
+Power to restrict your website and it's content
 
 ## Build & Required Tech Stack
 - Vue.js 3.3.11

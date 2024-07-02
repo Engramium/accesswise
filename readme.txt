@@ -1,10 +1,10 @@
-=== Accesswise - Power to restrict your website and it's content ===
+=== AccessWise - Power to restrict your website and it's content ===
 Plugin Name: Accesswise
-Version: 1.0.0
-Author: engramium
-Author URI: https://engramium.com/
+Version:     1.0.0
+Author:      engramium
+Author URI:   https://engramium.com/
 Contributors: engramium
-Tags:  protected, restricted, content-protection, toolbar, last-login
+Tags:         protected, restricted, content-protection, toolbar, last-login
 Requires at least: 5.0
 Tested up to: 6.5
 Requires PHP: 7.4

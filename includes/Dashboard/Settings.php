@@ -54,6 +54,8 @@ class Settings {
                 'private_website' => [],
                 'when_last_login' => [],
                 'right_click' => [],
+                'disable_right_click_msg' => esc_attr__('Right click is disabled!', 'accesswise'),
+                'disable_copy_msg' => esc_attr__('Cut/Copy/Paste is disabled!', 'accesswise'),
             ],
         ];
     }

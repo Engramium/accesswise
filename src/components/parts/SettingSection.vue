@@ -26,7 +26,7 @@ const props = defineProps( [ "title", "helpText", "helpURL" ] );
 				</el-popover>
 			</div>
 		</div>
-		<slot></slot>
+		<div class="setting-input-wrap"><slot></slot></div>
 	</div>
 </template>
 
@@ -49,7 +49,9 @@ const props = defineProps( [ "title", "helpText", "helpURL" ] );
 		}
 	}
 
-	.setting-input {
+	.setting-input-wrap {
+		@include flex(column, flex-start, flex-start);
+		gap: 10px;
 		width: 70%;
 	}
 }

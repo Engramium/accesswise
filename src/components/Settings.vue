@@ -1,5 +1,6 @@
 <script setup>
 import { ref, inject, watch } from "vue";
+import { useDebounceFn } from "@vueuse/core";
 import { data, fn, icons } from "../utils/data";
 import SettingItem from "./parts/SettingItem.vue";
 import SettingSection from "./parts/SettingSection.vue";
@@ -67,14 +68,18 @@ const getSettingsFields = () => {
 const currentClick = ref( null );
 
 const changeSetting = ( event ) => {
-	console.log(event);
-	
+	console.log( event );
+
 	// updateSetting( { feature: content, status: event, currentClick: currentClick.value } );
-	updateSetting( event );
+	updateSetting( );
 	// currentClick.value = null;
 };
 
-const updateSetting = ( content ) => {
+const saveWrittenMessage = useDebounceFn( () => {
+	updateSetting( );
+}, 1000 );
+
+const updateSetting = ( ) => {
 	const res = fn.fetchAdminAjax( accesswise.admin_ajax, "post", {
 		action: "accesswise_update_settings",
 		generals: data.settings.generals,
@@ -97,7 +102,7 @@ const updateSetting = ( content ) => {
 	// }
 
 	// let msg = `${content.feature.title}: ${status}`;
-	let msg = `Success`;
+	let msg = wp.i18n.__( 'Settings have been successfully updated.', 'accesswise' );
 
 	res.then( ( response ) => {
 		if ( response.status ) {
@@ -183,6 +188,12 @@ const updateSetting = ( content ) => {
 									<el-checkbox :label="__('Disable Copy', 'accesswise')" value="disable_copy" />
 								</div>
 							</el-checkbox-group>
+							<el-input v-if="data.settings.generals.right_click?.includes('disable_right_click')" v-model="data.settings.generals.disable_right_click_msg" @input="saveWrittenMessage" size="large" :placeholder="__('Disable Right Click Message', 'accesswise')">
+								<template #prepend>{{ __('Disable Right Click Message', 'accesswise') }}</template>
+							</el-input>
+							<el-input v-if="data.settings.generals.right_click?.includes('disable_copy')" v-model="data.settings.generals.disable_copy_msg" @input="saveWrittenMessage" size="large" :placeholder="__('Disable Copy Message', 'accesswise')">
+								<template #prepend>{{ __('Disable Copy Message', 'accesswise') }}</template>
+							</el-input>
 						</SettingSection>
 					</div>
 				</div>
@@ -215,6 +226,10 @@ const updateSetting = ( content ) => {
 				padding: 20px;
 				margin: 30px 0;
 				max-width: 1124px;
+
+				// .setting-input {
+				// 	width: 70%;
+				// }
 			}
 		}
 	}

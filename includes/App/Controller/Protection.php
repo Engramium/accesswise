@@ -51,16 +51,22 @@ class Protection {
     public function insert_in_footer() {
         if ( ! current_user_can( 'administrator' ) && isset( $this->general_settings['right_click'] ) && is_array( $this->general_settings['right_click'] ) ) {
             if ( in_array( 'disable_copy', $this->general_settings['right_click'] ) ) {
+				$disable_right_click_msg = $this->general_settings['disable_right_click_msg'] ??  esc_attr__('Right click is disabled!', 'accesswise');
                 echo "
                 <script type='text/javascript'>
+					function showMessage(msg) {
+						alert(msg);
+					}
                     document.addEventListener('DOMContentLoaded', function() {
 
                         document.addEventListener('selectstart', function(e) {
                             e.preventDefault();
+							showMessage({$disable_right_click_msg});
                         });
 
                         document.addEventListener('dragstart', function(e) {
                             e.preventDefault();
+							showMessage({$disable_right_click_msg});
                         });
 
                         document.addEventListener('keydown', function(e) {
@@ -68,10 +74,12 @@ class Protection {
 
                             if ((e.ctrlKey || e.metaKey) && forbiddenKeys.includes(e.key.toUpperCase())) {
                                 e.preventDefault();
+								showMessage({$disable_right_click_msg});
                             }
 
                             if (e.key === 'F12') {
                                 e.preventDefault();
+								showMessage({$disable_right_click_msg});
                             }
                         });
                     });
@@ -79,11 +87,16 @@ class Protection {
                 ";
             }
             if ( in_array( 'disable_right_click', $this->general_settings['right_click'] ) ) {
+				$disable_copy_msg = $this->general_settings['disable_copy_msg'] ??  esc_attr__('Cut/Copy/Paste is disabled!', 'accesswise');
                 echo "
                 <script type='text/javascript'>
+					function showMessage(msg) {
+						alert(msg);
+					}
                     document.addEventListener('DOMContentLoaded', function() {
                         document.addEventListener('contextmenu', function(e) {
                             e.preventDefault();
+							showMessage({$disable_right_click_msg});
                         });
                     });
                 </script>

@@ -16,22 +16,22 @@ defined( 'ABSPATH' ) || exit;
  */
 class Base {
 
-    use \Engramium\Accesswise\Traits\Singleton;
+	use \Engramium\Accesswise\Traits\Singleton;
 
-    public $settings;
+	public $settings;
 
-    /**
-     * initialization function
-     *
-     * @since 1.0.0
-     *
-     * @return void
-     */
-    public function init() {
-        $this->settings = Settings::instance()->get_settings();
-        LastLogin::instance()->init();
-        Redirection::instance()->init();
-        Toolbar::instance()->init();
-        Protection::instance()->init();
-    }
+	/**
+	 * initialization function
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public function init() {
+		$this->settings = Settings::instance()->get_settings();
+		LastLogin::instance()->init();
+		Redirection::instance()->init();
+		Toolbar::instance()->init();
+		Protection::instance()->init();
+	}
 }

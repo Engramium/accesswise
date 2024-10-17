@@ -1,6 +1,6 @@
 {
   "name": "accesswise",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "description": "Power to restrict your website and it's content via Age Gate, Force Login, Disable Right click",
   "scripts": {

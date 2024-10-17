@@ -13,17 +13,17 @@ defined( 'ABSPATH' ) || exit;
  */
 class Base {
 
-    use \Engramium\Accesswise\Traits\Singleton;
+	use \Engramium\Accesswise\Traits\Singleton;
 
-    /**
-     * initialization function
-     *
-     * @return void
-     * @since 1.0.0
-     */
-    public function init() {
-        Controller\Base::instance()->init();
-        RegisterAssets::instance()->init();
-        AjaxHandler::instance()->init();
-    }
+	/**
+	 * initialization function
+	 *
+	 * @return void
+	 * @since 1.0.0
+	 */
+	public function init() {
+		Controller\Base::instance()->init();
+		RegisterAssets::instance()->init();
+		AjaxHandler::instance()->init();
+	}
 }

@@ -8,13 +8,13 @@ import { Right, StarFilled, Setting } from "@element-plus/icons-vue";
 			<div class="grid-item">
 				<el-text style="align-self: flex-start" tag="h2" size="large">{{
 					__("Introducing AccessWise", "accesswise")
-					}}</el-text>
+				}}</el-text>
 				<el-text tag="p">
 					{{
-					__(
-					"Fast-loading websites improves the user experience, increases the website views, and can even help with WordPress SEO. Introducing Accesswise, the most useful WordPress speed optimization plugin to boost WordPress performance and speed up your website.",
-					"accesswise"
-					)
+						__(
+							"Fast-loading websites improves the user experience, increases the website views, and can even help with WordPress SEO. Introducing Accesswise, the most useful WordPress speed optimization plugin to boost WordPress performance and speed up your website.",
+							"accesswise"
+						)
 					}}
 				</el-text>
 				<iframe
@@ -37,13 +37,13 @@ import { Right, StarFilled, Setting } from "@element-plus/icons-vue";
 			<div class="grid-item">
 				<el-text style="align-self: flex-start" tag="h2" size="large">{{
 					__("Join the Community", "accesswise")
-					}}</el-text>
+				}}</el-text>
 				<el-text tag="p" style="align-self: flex-start">
 					{{
-					__(
-					"Do you have a question about the plugin or what to share about your feedback? Join our growing community!",
-					"accesswise"
-					)
+						__(
+							"Do you have a question about the plugin or what to share about your feedback? Join our growing community!",
+							"accesswise"
+						)
 					}}
 				</el-text>
 				<el-link tag="a" href="https://www.facebook.com/groups/engramium/" target="_blank" size="large" type="danger">
@@ -56,13 +56,13 @@ import { Right, StarFilled, Setting } from "@element-plus/icons-vue";
 			<div class="grid-item">
 				<el-text style="align-self: flex-start" tag="h2" size="large">{{
 					__("Knowledge Base", "accesswise")
-					}}</el-text>
+				}}</el-text>
 				<el-text style="align-self: flex-start" tag="p">
 					{{
-					__(
-					"Watch our AccessWise Basic & Fundamental Video tutorials and more.",
-					"accesswise"
-					)
+						__(
+							"Watch our AccessWise Basic & Fundamental Video tutorials and more.",
+							"accesswise"
+						)
 					}}
 				</el-text>
 				<el-link tag="a" href="https://www.youtube.com/engramium" target="_blank" size="large" type="danger">
@@ -77,10 +77,10 @@ import { Right, StarFilled, Setting } from "@element-plus/icons-vue";
 				</el-text>
 				<el-text style="align-self: flex-start" tag="p">
 					{{
-					__(
-					"We love to hear from you, we would appreciate every single review.",
-					"accesswise"
-					)
+						__(
+							"We love to hear from you, we would appreciate every single review.",
+							"accesswise"
+						)
 					}}
 				</el-text>
 				<el-link tag="a" href="https://wordpress.org/support/plugin/accesswise/reviews/?filter=5" target="_blank" size="large" type="danger">
@@ -110,23 +110,23 @@ import { Right, StarFilled, Setting } from "@element-plus/icons-vue";
 					<h2>
 						<el-text size="large">{{
 							__("Settings", "accesswise")
-							}}</el-text>
+						}}</el-text>
 					</h2>
 				</div>
 				<p>
 					<el-text>{{
 						__(
-						"Many of the Accesswise's options can be applied by simply toggling them on.",
-						"accesswise"
+							"Many of the Accesswise's options can be applied by simply toggling them on.",
+							"accesswise"
 						)
-						}}</el-text>
+					}}</el-text>
 				</p>
 			</div>
 			<div class="grid-item">
 				<h2>
 					<el-text size="large">{{
 						__("Coming Soon...", "accesswise")
-						}}</el-text>
+					}}</el-text>
 				</h2>
 			</div>
 		</div>

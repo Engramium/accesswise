@@ -26,7 +26,9 @@ const props = defineProps( [ "title", "helpText", "helpURL" ] );
 				</el-popover>
 			</div>
 		</div>
-		<div class="setting-input-wrap"><slot></slot></div>
+		<div class="setting-input-wrap">
+			<slot></slot>
+		</div>
 	</div>
 </template>
 

@@ -1,14 +1,14 @@
 === AccessWise - Power to restrict your website and it's content ===
 Plugin Name: Accesswise
-Version:     1.0.0
+Version:     1.0.1
 Author:      engramium
 Author URI:   https://engramium.com/
 Contributors: engramium
 Tags:         protected, restricted, content-protection, toolbar, last-login
 Requires at least: 5.0
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag:   1.0.0
+Stable tag:   1.0.1
 License:      GPLv3
 License URI:  http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -45,6 +45,10 @@ Absolutely! It will work with any theme where WordPress core standards have been
 
 == Changelog ==
 
+= v1.0.1 ( October 18, 2024 ) =
+- **Update:** Updated and optimized copy protected and right click.
+- **New:** Enable public URI in private website.
+
 = v1.0.0 ( June 30, 2024 ) =
 - **Update:** Updated the full plugin structure
 - **New:** Added Toolbar
@@ -52,5 +56,4 @@ Absolutely! It will work with any theme where WordPress core standards have been
 - **New:** Added Private website
 
 = v0.0.0.1 ( 2022 ) =
-
 - Initial stable release

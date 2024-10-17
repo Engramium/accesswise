@@ -3,7 +3,7 @@
 namespace Engramium\Accesswise\App;
 
 // If this file is called directly, abort.
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Any kind of helper class
@@ -27,19 +27,19 @@ class Helper {
 
 		$env_file = ACCESSWISE_PATH . '.env';
 
-		if (!file_exists($env_file)) {
+		if ( ! file_exists( $env_file ) ) {
 			return $env_data;
 		}
 
-		$lines = file($env_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+		$lines = file( $env_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES );
 
-		foreach ($lines as $line) {
-			if (strpos($line, '=') !== false && strpos($line, '#') !== 0) {
-				list($key, $value) = explode('=', $line, 2);
-				$key = trim($key);
-				$value = trim($value);
+		foreach ( $lines as $line ) {
+			if ( strpos( $line, '=' ) !== false && strpos( $line, '#' ) !== 0 ) {
+				list( $key, $value ) = explode( '=', $line, 2 );
+				$key               = trim( $key );
+				$value             = trim( $value );
 
-				if (!array_key_exists($key, $env_data)) {
+				if ( ! array_key_exists( $key, $env_data ) ) {
 					$env_data[$key] = $value;
 				}
 			}

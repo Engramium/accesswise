@@ -19,8 +19,8 @@ const getSettings = () => {
 	res.then( ( response ) => {
 		if ( response.status ) {
 			data.settings = response.data;
-			data.settings.generals.disable_right_click_msg = data.settings.generals.disable_right_click_msg ?? wp.i18n.__('Right click is disabled!', 'accesswise');
-			data.settings.generals.disable_copy_msg = data.settings.generals.disable_copy_msg ?? wp.i18n.__('Cut/Copy/Paste is disabled!', 'accesswise');
+			data.settings.generals.disable_right_click_msg = data.settings.generals.disable_right_click_msg ?? 'Right click is disabled!';
+			data.settings.generals.disable_copy_msg = data.settings.generals.disable_copy_msg ?? 'Cut/Copy/Paste is disabled!';
 		}
 		loading.close();
 	} );

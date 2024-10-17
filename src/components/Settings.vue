@@ -71,15 +71,15 @@ const changeSetting = ( event ) => {
 	console.log( event );
 
 	// updateSetting( { feature: content, status: event, currentClick: currentClick.value } );
-	updateSetting( );
+	updateSetting();
 	// currentClick.value = null;
 };
 
 const saveWrittenMessage = useDebounceFn( () => {
-	updateSetting( );
+	updateSetting();
 }, 1000 );
 
-const updateSetting = ( ) => {
+const updateSetting = () => {
 	const res = fn.fetchAdminAjax( accesswise.admin_ajax, "post", {
 		action: "accesswise_update_settings",
 		generals: data.settings.generals,
@@ -167,6 +167,10 @@ const updateSetting = ( ) => {
 									<el-checkbox :label="__('Restrict site access to only logged-in members', 'accesswise')" value="logged_in_users" />
 								</div>
 							</el-checkbox-group>
+							<div v-if="data.settings.generals.private_website?.includes('logged_in_users')" class="setting-input">
+								<el-input v-model="data.settings.generals.public_website_contents" @input="saveWrittenMessage" :autosize="{ minRows: 4, maxRows: 10 }" type="textarea" placeholder="e.g. /groups/" />
+								<label>{{ __('Enter URLs or URI fragments (e.g. /groups/) to remain publicly visible always. Enter one URL or URI per line.', 'accesswise') }}</label>
+							</div>
 						</SettingSection>
 					</div>
 					<div class="grid-item">

@@ -80,15 +80,23 @@ class RegisterAssets {
             // $this->add_script_to_auto_reload($env);
             $port = intval(isset($env['VITE_PORT']) ? $env['VITE_PORT'] : 4000);
             $main_src = "http://localhost:{$port}/src/main.js";
+            $frontend_src = "http://localhost:{$port}/src/frontend/main.js";
             $version = time();
         } else {
-            $main_src = ACCESSWISE_URL . 'dist/assets/index.js';
+            $main_src = ACCESSWISE_URL . 'dist/assets/admin.js';
+            $frontend_src = ACCESSWISE_URL . 'dist/assets/frontend/frontend.js';
             $version = ACCESSWISE_VERSION;
         }
 
         $scripts = [
             'accesswise-dashboard' => [
                 'src'       => $main_src,
+                'deps'      => ['jquery', 'wp-i18n'],
+                'version'   => $version,
+                'in_footer' => true
+			],
+            'accesswise-frontend' => [
+                'src'       => $frontend_src,
                 'deps'      => ['jquery', 'wp-i18n'],
                 'version'   => $version,
                 'in_footer' => true
@@ -110,7 +118,7 @@ class RegisterAssets {
 
         $styles = [
             'accesswise-dashboard' => [
-                'src' =>  ACCESSWISE_URL . 'dist/assets/index.css'
+                'src' =>  ACCESSWISE_URL . 'dist/assets/admin.css'
             ],
         ];
 

@@ -3,7 +3,7 @@
 namespace Engramium\Accesswise\Dashboard;
 
 // If this file is called directly, abort.
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Dashboard base class
@@ -13,50 +13,56 @@ defined('ABSPATH') || exit;
  */
 class Settings {
 
-    use \Engramium\Accesswise\Traits\Singleton;
+	use \Engramium\Accesswise\Traits\Singleton;
 
-    public $settings_key = "accesswise_settings";
+	public $settings_key = 'accesswise_settings';
 
-    public function get_settings() {
-        $defaults = $this->get_default_settings();
-        $quick_toggles = get_option($this->settings_key, []);
+	public function get_settings() {
+		$defaults      = $this->get_default_settings();
+		$quick_toggles = get_option( $this->settings_key, [] );
 
-        if (empty($quick_toggles)) {
-            return $defaults;
-        }
+		if ( empty( $quick_toggles ) ) {
+			return $defaults;
+		}
 
-        return $quick_toggles;
-    }
+		return $quick_toggles;
+	}
 
-    public function update_settings($data) {
-        $data = $this->sanitize_inputs($data);
-        $quick_toggles = update_option($this->settings_key, $data, true);
-        return $quick_toggles;
-    }
+	public function update_settings( $data ) {
+		$data          = $this->sanitize_inputs( $data );
+		$quick_toggles = update_option( $this->settings_key, $data, true );
 
-    public function sanitize_inputs($inputs) {
-        foreach ($inputs as $key => &$value) {
-            if (is_array($value) || is_object($value)) {
-                $value = $this->sanitize_inputs($value);
-            } else {
-                $value = sanitize_text_field($value);
-            }
-        }
-        return $inputs;
-    }
+		return $quick_toggles;
+	}
 
-    public function get_default_settings() {
-        return [
-            'generals' => [
-                'toolbar' => ['show_for_admins', 'show_for_non_admins'],
-                'redirection_after_login' => 'default',
-                'redirection_after_logout' => 'default',
-                'private_website' => [],
-                'when_last_login' => [],
-                'right_click' => [],
-                'disable_right_click_msg' => esc_attr__('Right click is disabled!', 'accesswise'),
-                'disable_copy_msg' => esc_attr__('Cut/Copy/Paste is disabled!', 'accesswise'),
-            ],
-        ];
-    }
+	public function sanitize_inputs( $inputs ) {
+		$text_areas = ['public_website_contents'];
+		foreach ( $inputs as $key => &$value ) {
+			if ( is_array( $value ) || is_object( $value ) ) {
+				$value = $this->sanitize_inputs( $value );
+			} else if ( in_array( $key, $text_areas ) ) {
+				$value = sanitize_textarea_field( $value );
+			} else {
+				$value = sanitize_text_field( $value );
+			}
+		}
+
+		return $inputs;
+	}
+
+	public function get_default_settings() {
+		return [
+			'generals' => [
+				'toolbar'                  => ['show_for_admins', 'show_for_non_admins'],
+				'redirection_after_login'  => 'default',
+				'redirection_after_logout' => 'default',
+				'private_website'          => [],
+				'public_website_contents'  => '',
+				'when_last_login'          => [],
+				'right_click'              => [],
+				'disable_right_click_msg'  => 'Right click is disabled!',
+				'disable_copy_msg'         => 'Cut/Copy/Paste is disabled!'
+			]
+		];
+	}
 }

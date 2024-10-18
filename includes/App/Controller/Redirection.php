@@ -76,6 +76,7 @@ class Redirection {
 			$request = $wp->request;
 
 			foreach ( $array_pub_contents as $content ) {
+				$content = str_replace('/', '', $content);
 				if ( strpos( $request, $content ) !== false ) {
 					$redirect = false;
 					break;

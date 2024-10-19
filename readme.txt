@@ -46,8 +46,9 @@ Absolutely! It will work with any theme where WordPress core standards have been
 == Changelog ==
 
 = v1.0.1 ( October 18, 2024 ) =
-- **Update:** Updated and optimized copy protected and right click.
 - **New:** Enable public URI in private website.
+- **New:** Added a new option to enter message for copy protection and right click.
+- **Update:** Updated and optimized copy protected and right click.
 
 = v1.0.0 ( June 30, 2024 ) =
 - **Update:** Updated the full plugin structure

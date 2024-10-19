@@ -3,7 +3,7 @@
 Plugin Name: AccessWise
 Plugin URI:  https://wordpress.org/plugins/accesswise/
 Description: Power to restrict your website and it's content
-Version:     1.0.0
+Version:     1.0.1
 Author:      Engramium
 Author URI:  https://engramium.com
 License:     GPL-3.0-or-later

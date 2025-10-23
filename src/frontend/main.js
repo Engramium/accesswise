@@ -36,7 +36,7 @@ function disableCopy () {
 	} );
 
 	document.addEventListener( 'keydown', function ( e ) {
-		const forbiddenKeys = [ 'U', 'S', 'C', 'X' ];
+		const forbiddenKeys = [ 'U', 'S', 'C', 'X', 'P' ];
 
 		if ( ( e.ctrlKey || e.metaKey ) && forbiddenKeys.includes( e.key.toUpperCase() ) ) {
 			e.preventDefault();

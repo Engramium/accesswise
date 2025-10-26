@@ -1,4 +1,4 @@
-# Copyright (C) 2024 Engramium
+# Copyright (C) 2025 Engramium
 # This file is distributed under the GPL-3.0-or-later.
 msgid ""
 msgstr ""
@@ -9,9 +9,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-10-19T18:25:13+06:00\n"
+"POT-Creation-Date: 2025-10-26T00:53:51+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.11.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: accesswise\n"
 
 #. Plugin Name of the plugin
@@ -210,4 +210,12 @@ msgstr ""
 
 #: dist/assets/admin.js:29
 msgid "Disable Copy Message"
+msgstr ""
+
+#: dist/assets/admin.js:29
+msgid "Exclude Post Types:"
+msgstr ""
+
+#: dist/assets/admin.js:29
+msgid "Exclude User Roles:"
 msgstr ""

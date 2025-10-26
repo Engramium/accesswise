@@ -4,14 +4,7 @@ import Header from "./components/parts/Header.vue";
 import Footer from "./components/parts/Footer.vue";
 import { onMounted } from "vue";
 
-const getSettings = () => {
-	const loading = ElLoading.service( {
-		fullscreen: true,
-		lock: true,
-		text: "Loading",
-		background: "rgba(0, 0, 0, 0.7)",
-	} );
-
+const getSettings = async () => {
 	const res = fn.fetchAdminAjax( accesswise.admin_ajax, "get", {
 		action: "accesswise_get_settings",
 		nonce: accesswise.nonce,
@@ -23,13 +16,12 @@ const getSettings = () => {
 			data.settings.generals.disable_right_click_msg = data.settings.generals.disable_right_click_msg ?? 'Right click is disabled!';
 			data.settings.generals.disable_copy_msg = data.settings.generals.disable_copy_msg ?? 'Cut/Copy/Paste is disabled!';
 			data.settings.generals.right_click_exclude_posts = data.settings.generals.right_click_exclude_posts ?? [];
-			data.settings.generals.right_click_exclude_roles = data.settings.generals.right_click_exclude_roles ?? ['administrator'];
+			data.settings.generals.right_click_exclude_roles = data.settings.generals.right_click_exclude_roles ?? [];
 		}
-		loading.close();
 	} );
 };
 
-const getWpPages = () => {
+const getWpPages = async () => {
 	const res = fn.fetchPublicUrl( accesswise.rest_url + "wp/v2/pages", 'get' );
 	res.then( response => {
 		let formatPages = { default: 'Default' };
@@ -40,33 +32,46 @@ const getWpPages = () => {
 	} );
 };
 
-const getWpPostTypes = () => {
+const getWpPostTypes = async () => {
 	const res = fn.fetchAdminAjax( accesswise.admin_ajax, 'get', {
 		action: 'accesswise_get_post_types',
 		nonce: accesswise.nonce,
 	} );
 	res.then( response => {
-		console.log( response.data );
 		data.postTypes = response.data;
 	} );
 };
 
-const getUserRoles = () => {
+const getUserRoles = async () => {
 	const res = fn.fetchAdminAjax( accesswise.admin_ajax, 'get', {
 		action: 'accesswise_get_user_roles',
 		nonce: accesswise.nonce,
 	} );
 	res.then( response => {
-		console.log( response.data );
 		data.userRoles = response.data;
 	} );
 };
 
+const initializeApp = async () => {
+	const loading = ElLoading.service( {
+		fullscreen: true,
+		lock: true,
+		text: "Loading",
+		background: "rgba(0, 0, 0, 0.7)",
+	} );
+
+	await Promise.all( [
+		getSettings(),
+		getWpPages(),
+		getWpPostTypes(),
+		getUserRoles()
+	] );
+
+	loading.close();
+};
+
 onMounted( () => {
-	getSettings();
-	getWpPages();
-	getWpPostTypes();
-	getUserRoles();
+	initializeApp();
 } );
 </script>
 

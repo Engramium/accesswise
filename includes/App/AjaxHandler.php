@@ -26,6 +26,8 @@ class AjaxHandler {
 	public function init() {
 		add_action( 'wp_ajax_accesswise_update_settings', [$this, 'update_settings'] );
 		add_action( 'wp_ajax_accesswise_get_settings', [$this, 'get_settings'] );
+		add_action( 'wp_ajax_accesswise_get_post_types', [$this, 'get_post_types'] );
+		add_action( 'wp_ajax_accesswise_get_user_roles', [$this, 'get_user_roles'] );
 	}
 
 	public function check_nonce() {
@@ -59,6 +61,34 @@ class AjaxHandler {
 			'status' => true,
 			'msg'    => 'Settings get.',
 			'data'   => Settings::instance()->get_settings()
+		] );
+	}
+
+	public function get_post_types() {
+		$this->check_nonce();
+
+		$public_post_types = get_post_types( [
+			'public' => true
+		], 'objects' );
+
+		unset( $public_post_types['attachment'] );
+
+		wp_send_json( [
+			'status' => true,
+			'msg'    => 'Post types get.',
+			'data'   => $public_post_types
+		] );
+	}
+
+	public function get_user_roles() {
+		$this->check_nonce();
+
+		$wp_roles = wp_roles();
+
+		wp_send_json( [
+			'status' => true,
+			'msg'    => 'User roles get.',
+			'data'   => $wp_roles->get_names()
 		] );
 	}
 }

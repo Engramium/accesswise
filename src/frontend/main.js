@@ -3,6 +3,10 @@
 } )( jQuery, window );
 
 function protection () {
+	if ( accesswise.excludedUserRoles.includes( accesswise.currentUserRole ) || accesswise.excludedPostTypes.includes( accesswise.currentPostType ) ) {
+		return;
+	}
+
 	if ( accesswise.disableCopy ) {
 		disableCopy();
 	}

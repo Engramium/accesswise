@@ -198,6 +198,16 @@ const updateSetting = () => {
 							<el-input v-if="data.settings.generals.right_click?.includes('disable_copy')" v-model="data.settings.generals.disable_copy_msg" @input="saveWrittenMessage" size="large" :placeholder="__('Disable Copy Message', 'accesswise')">
 								<template #prepend>{{ __('Disable Copy Message', 'accesswise') }}</template>
 							</el-input>
+							<template v-if="data.settings.generals.right_click?.includes('disable_right_click') || data.settings.generals.right_click?.includes('disable_copy')">
+								<el-text>{{ __('Exclude Post Types:', 'accesswise') }}</el-text>
+								<el-select multiple class="m-2" placeholder="Exclude post types" size="large" v-model="data.settings.generals.right_click_exclude_posts" @change="changeSetting($event)">
+									<el-option v-for="(item, key) in data.postTypes" :key="key" :label="item.label" :value="key" />
+								</el-select>
+								<el-text>{{ __('Exclude User Roles:', 'accesswise') }}</el-text>
+								<el-select multiple class="m-2" placeholder="Exclude user roles" size="large" v-model="data.settings.generals.right_click_exclude_roles" @change="changeSetting($event)">
+									<el-option v-for="(item, key) in data.userRoles" :key="key" :label="item" :value="key" />
+								</el-select>
+							</template>
 						</SettingSection>
 					</div>
 				</div>

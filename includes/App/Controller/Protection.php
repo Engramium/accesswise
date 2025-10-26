@@ -31,14 +31,30 @@ class Protection {
 	}
 
 	public function modify_i18n_to_enable_protection( $i18n ) {
-		if ( ! current_user_can( 'administrator' ) && isset( $this->general_settings['right_click'] ) && is_array( $this->general_settings['right_click'] ) ) {
+		if ( isset( $this->general_settings['right_click'] ) && is_array( $this->general_settings['right_click'] ) ) {
 			$i18n['disableRightClick']    = in_array( 'disable_right_click', $this->general_settings['right_click'], true );
 			$i18n['disableRightClickMsg'] = $this->general_settings['disable_right_click_msg'] ?? '';
 			$i18n['disableCopy']          = in_array( 'disable_copy', $this->general_settings['right_click'], true );
 			$i18n['disableCopyMsg']       = $this->general_settings['disable_copy_msg'] ?? '';
+			$i18n['excludedUserRoles']    = $this->general_settings['right_click_exclude_roles'] ?? [];
+			$i18n['excludedPostTypes']    = $this->general_settings['right_click_exclude_posts'] ?? [];
+			$i18n['currentUserRole']      = $this->current_user_role();
+			$i18n['currentPostType']      = get_post_type();
 		}
 
 		return $i18n;
 	}
 
+	public function current_user_role() {
+		$current_user = wp_get_current_user();
+
+		if ( ! empty( $current_user->roles ) && is_array( $current_user->roles ) ) {
+			$user_roles = $current_user->roles;
+			$user_role  = $user_roles[0];
+		} else {
+			$user_role = 'none';
+		}
+
+		return $user_role;
+	}
 }

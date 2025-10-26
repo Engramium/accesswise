@@ -4,6 +4,8 @@ import icons from "./icons";
 
 const data = reactive( {
 	pages: null,
+	postTypes: null,
+	userRoles: null,
 	rules: null,
 	settings: null,
 	currentRouteName: 'welcome',

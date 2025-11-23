@@ -15,6 +15,7 @@ const getSettings = async () => {
 			data.settings = response.data;
 			data.settings.generals.disable_right_click_msg = data.settings.generals.disable_right_click_msg ?? 'Right click is disabled!';
 			data.settings.generals.disable_copy_msg = data.settings.generals.disable_copy_msg ?? 'Cut/Copy/Paste is disabled!';
+			data.settings.generals.disable_keys = data.settings.generals.disable_keys ?? [];
 			data.settings.generals.right_click_exclude_posts = data.settings.generals.right_click_exclude_posts ?? [];
 			data.settings.generals.right_click_exclude_roles = data.settings.generals.right_click_exclude_roles ?? [];
 		}

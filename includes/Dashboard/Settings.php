@@ -32,9 +32,6 @@ class Settings {
 		$default_settings = $this->get_default_settings();
 
 		$filtered_data = $this->filter_inputs( $data, $default_settings );
-		error_log( '=======================' );
-		error_log( print_r( $filtered_data, true ) );
-		error_log( '=======================' );
 
 		$sanitized_data   = $this->sanitize_inputs( $filtered_data );
 		$current_settings = update_option( $this->settings_key, $sanitized_data, true );
@@ -67,6 +64,7 @@ class Settings {
 				'public_website_contents'   => '',
 				'when_last_login'           => [],
 				'right_click'               => [],
+				'disable_keys'              => [],
 				'disable_right_click_msg'   => 'Right click is disabled!',
 				'disable_copy_msg'          => 'Cut/Copy/Paste is disabled!',
 				'right_click_exclude_posts' => [],

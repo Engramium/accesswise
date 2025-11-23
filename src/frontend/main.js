@@ -30,24 +30,46 @@ function disableRightClick () {
 
 function disableCopy () {
 	document.addEventListener( 'selectstart', function ( e ) {
-		e.preventDefault();
-		showMessage( accesswise.disableCopyMsg );
+		if ( accesswise.disableKeys.includes( 'disable_select' ) ) {
+			e.preventDefault();
+			showMessage( accesswise.disableCopyMsg );
+		}
 	} );
 
 	document.addEventListener( 'dragstart', function ( e ) {
-		e.preventDefault();
-		showMessage( accesswise.disableCopyMsg );
+		if ( accesswise.disableKeys.includes( 'disable_drag' ) ) {
+			e.preventDefault();
+			showMessage( accesswise.disableCopyMsg );
+		}
 	} );
 
 	document.addEventListener( 'keydown', function ( e ) {
-		const forbiddenKeys = [ 'U', 'S', 'C', 'X', 'P' ];
+		const forbiddenKeys = [];
+
+		for ( const key of accesswise.disableKeys ) {
+			if ( key === 'disable_ctrl_a' ) {
+				forbiddenKeys.push( 'A' );
+			} else if ( key === 'disable_ctrl_c' ) {
+				forbiddenKeys.push( 'C' );
+			} else if ( key === 'disable_ctrl_v' ) {
+				forbiddenKeys.push( 'V' );
+			} else if ( key === 'disable_ctrl_x' ) {
+				forbiddenKeys.push( 'X' );
+			} else if ( key === 'disable_ctrl_u' ) {
+				forbiddenKeys.push( 'Y' );
+			} else if ( key === 'disable_ctrl_p' ) {
+				forbiddenKeys.push( 'P' );
+			} else if ( key === 'disable_ctrl_s' ) {
+				forbiddenKeys.push( 'S' );
+			}
+		}
 
 		if ( ( e.ctrlKey || e.metaKey ) && forbiddenKeys.includes( e.key.toUpperCase() ) ) {
 			e.preventDefault();
 			showMessage( accesswise.disableCopyMsg );
 		}
 
-		if ( e.key === 'F12' ) {
+		if ( e.key === 'F12' && accesswise.disableKeys.includes( 'disable_f12' ) ) {
 			e.preventDefault();
 			showMessage( accesswise.disableCopyMsg );
 		}

@@ -1,78 +1,10 @@
 <script setup>
-import { ref, inject, watch } from "vue";
 import { useDebounceFn } from "@vueuse/core";
-import { data, fn, icons } from "../utils/data";
-import SettingItem from "./parts/SettingItem.vue";
+import { data, fn } from "../utils/data";
 import SettingSection from "./parts/SettingSection.vue";
 
-const getSettingsFields = () => {
-	return {
-		generals: {
-			toolbar: {
-				input: 'checkbox',
-				title: wp.i18n.__( "Toolbar", "accesswise" ),
-				helpUrl: "#",
-				helpText: wp.i18n.__( "The admin Toolbar is a horizontal black bar at the top of the screen.", "accesswise" ),
-				options: {
-					show_for_admins: wp.i18n.__( "Show the Toolbar for logged-in admins", "accesswise" ),
-					show_for_non_admins: wp.i18n.__( "Show the Toolbar for logged-in members (non-admins)", "accesswise" ),
-					show_for_public: wp.i18n.__( "Show the Toolbar for logged out users", "accesswise" ),
-				}
-			},
-			redirection_after_login: {
-				input: 'select',
-				title: wp.i18n.__( "Redirection (After Login)", "accesswise" ),
-				helpUrl: "#",
-				helpText: wp.i18n.__( "Forward to your preferred page or post type, depending on the user's logged-in state.", "accesswise" ),
-				options: data.pages,
-			},
-			redirection_after_logout: {
-				input: 'select',
-				title: wp.i18n.__( "Redirection (After Logout)", "accesswise" ),
-				helpUrl: "#",
-				helpText: wp.i18n.__( "Forward to your preferred page or post type, depending on the user's logged-out state.", "accesswise" ),
-				options: data.pages,
-			},
-			private_website: {
-				input: 'checkbox',
-				title: wp.i18n.__( "Private Website", "accesswise" ),
-				helpUrl: "#",
-				helpText: wp.i18n.__( "Login and Registration content will remain publicly visible.", "accesswise" ),
-				options: {
-					logged_in_users: wp.i18n.__( "Restrict site access to only logged-in members", "accesswise" ),
-				},
-			},
-			when_last_login: {
-				input: 'checkbox',
-				title: wp.i18n.__( "When Last Login", "accesswise" ),
-				helpUrl: "#",
-				helpText: wp.i18n.__( "When Last Login", "accesswise" ),
-				options: {
-					show_last_login: wp.i18n.__( "Show Last login in users", "accesswise" )
-				},
-			},
-			right_click: {
-				input: 'checkbox',
-				title: wp.i18n.__( "Copy Protection & Disable Right Click", "accesswise" ),
-				helpUrl: "#",
-				helpText: wp.i18n.__( "Regardless of this setting, this will not be impact for the Administrators.", "accesswise" ),
-				options: {
-					disable_right_click: wp.i18n.__( "Disable Right Click", "accesswise" ),
-					disable_copy: wp.i18n.__( "Disable Copy", "accesswise" ),
-				},
-			},
-		},
-	};
-};
-
-const currentClick = ref( null );
-
-const changeSetting = ( event ) => {
-	console.log( event );
-
-	// updateSetting( { feature: content, status: event, currentClick: currentClick.value } );
+const changeSetting = () => {
 	updateSetting();
-	// currentClick.value = null;
 };
 
 const saveWrittenMessage = useDebounceFn( () => {
@@ -86,22 +18,6 @@ const updateSetting = () => {
 		nonce: accesswise.nonce,
 	} );
 
-	// let status = "";
-	// if ( ( content.status == false || content.status == true ) && typeof content.status == "boolean" ) {
-	// 	status = content.status ? wp.i18n.__( 'Enabled', 'accesswise' ) : wp.i18n.__( 'Disabled', 'accesswise' );
-	// } else {
-	// 	if ( content.currentClick == null ) {
-	// 		status = content.feature.options[ content.status ];
-	// 	} else {
-	// 		if ( content.status.includes( content.currentClick ) ) {
-	// 			status = `${wp.i18n.__( 'Enabled:', 'accesswise' )} ${content.feature.options[ content.currentClick ]}`;
-	// 		} else {
-	// 			status = `${wp.i18n.__( 'Disabled:', 'accesswise' )} ${content.feature.options[ content.currentClick ]}`;
-	// 		}
-	// 	}
-	// }
-
-	// let msg = `${content.feature.title}: ${status}`;
 	let msg = wp.i18n.__( 'Settings have been successfully updated.', 'accesswise' );
 
 	res.then( ( response ) => {
@@ -128,9 +44,51 @@ const updateSetting = () => {
 		<div class="feature-wrap">
 			<div class="feature-content">
 				<div class="grid">
-					<!-- <div v-for="(general, index) in getSettingsFields().generals" :key="index" class="grid-item">
-						<SettingItem @update-setting="updateSetting" :content="general" v-model="data.settings.generals[index]" />
-					</div> -->
+					<div class="grid-item">
+						<SettingSection title="Copy Protection & Disable Right Click" helpText="Regardless of this setting, this will not be impact for the Administrators." helpURL="#">
+							<el-checkbox-group class="setting-input" v-model="data.settings.generals.right_click" @change="changeSetting($event)">
+								<div>
+									<el-checkbox :label="__('Disable Right Click', 'accesswise')" value="disable_right_click" />
+								</div>
+								<div>
+									<el-checkbox :label="__('Disable Copy', 'accesswise')" value="disable_copy" />
+								</div>
+							</el-checkbox-group>
+							<template v-if="data.settings.generals.right_click?.includes('disable_right_click') || data.settings.generals.right_click?.includes('disable_copy')">
+								<el-text class="section-title" tag="p">{{ __('Disable Keys:', 'accesswise') }}</el-text>
+								<el-checkbox-group class="setting-input" v-model="data.settings.generals.disable_keys" @change="changeSetting($event)">
+									<el-checkbox :label="__('Disable Text Select', 'accesswise')" value="disable_select" />
+									<el-checkbox :label="__('Disable Image Drag', 'accesswise')" value="disable_drag" />
+									<el-checkbox :label="__('Disable Ctrl + A', 'accesswise')" value="disable_ctrl_a" />
+									<el-checkbox :label="__('Disable Ctrl + C', 'accesswise')" value="disable_ctrl_c" />
+									<el-checkbox :label="__('Disable Ctrl + V', 'accesswise')" value="disable_ctrl_v" />
+									<el-checkbox :label="__('Disable Ctrl + X', 'accesswise')" value="disable_ctrl_x" />
+									<el-checkbox :label="__('Disable Ctrl + U', 'accesswise')" value="disable_ctrl_u" />
+									<el-checkbox :label="__('Disable Ctrl + P', 'accesswise')" value="disable_ctrl_p" />
+									<el-checkbox :label="__('Disable Ctrl + S', 'accesswise')" value="disable_ctrl_s" />
+									<el-checkbox :label="__('Disable F12', 'accesswise')" value="disable_f12" />
+								</el-checkbox-group>
+							</template>
+							<template v-if="data.settings.generals.right_click?.includes('disable_right_click')">
+								<el-text class="section-title" tag="p">{{ __('Disable Right Click Message:', 'accesswise') }}</el-text>
+								<el-input v-model="data.settings.generals.disable_right_click_msg" @input="saveWrittenMessage" size="large" :placeholder="__('Disable Right Click Message', 'accesswise')"></el-input>
+							</template>
+							<template v-if="data.settings.generals.right_click?.includes('disable_copy')">
+								<el-text class="section-title" tag="p">{{ __('Disable Copy Message:', 'accesswise') }}</el-text>
+								<el-input v-model="data.settings.generals.disable_copy_msg" @input="saveWrittenMessage" size="large" :placeholder="__('Disable Copy Message', 'accesswise')"></el-input>
+							</template>
+							<template v-if="data.settings.generals.right_click?.includes('disable_right_click') || data.settings.generals.right_click?.includes('disable_copy')">
+								<el-text class="section-title" tag="p">{{ __('Exclude Post Types:', 'accesswise') }}</el-text>
+								<el-select multiple class="m-2" placeholder="Exclude post types" size="large" v-model="data.settings.generals.right_click_exclude_posts" @change="changeSetting($event)">
+									<el-option v-for="(item, key) in data.postTypes" :key="key" :label="item.label" :value="key" />
+								</el-select>
+								<el-text class="section-title" tag="p">{{ __('Exclude User Roles:', 'accesswise') }}</el-text>
+								<el-select multiple class="m-2" placeholder="Exclude user roles" size="large" v-model="data.settings.generals.right_click_exclude_roles" @change="changeSetting($event)">
+									<el-option v-for="(item, key) in data.userRoles" :key="key" :label="item" :value="key" />
+								</el-select>
+							</template>
+						</SettingSection>
+					</div>
 					<div class="grid-item">
 						<SettingSection :title="__('Toolbar', 'accesswise')" :helpText="__('The admin Toolbar is a horizontal black bar at the top of the screen.', 'accesswise')" :helpURL="__('https://example.com/toolbar-help', 'accesswise')">
 							<el-checkbox-group class="setting-input" v-model="data.settings.generals.toolbar" @change="changeSetting($event)">
@@ -182,34 +140,6 @@ const updateSetting = () => {
 							</el-checkbox-group>
 						</SettingSection>
 					</div>
-					<div class="grid-item">
-						<SettingSection title="Copy Protection & Disable Right Click" helpText="Regardless of this setting, this will not be impact for the Administrators." helpURL="#">
-							<el-checkbox-group class="setting-input" v-model="data.settings.generals.right_click" @change="changeSetting($event)">
-								<div>
-									<el-checkbox :label="__('Disable Right Click', 'accesswise')" value="disable_right_click" />
-								</div>
-								<div>
-									<el-checkbox :label="__('Disable Copy', 'accesswise')" value="disable_copy" />
-								</div>
-							</el-checkbox-group>
-							<el-input v-if="data.settings.generals.right_click?.includes('disable_right_click')" v-model="data.settings.generals.disable_right_click_msg" @input="saveWrittenMessage" size="large" :placeholder="__('Disable Right Click Message', 'accesswise')">
-								<template #prepend>{{ __('Disable Right Click Message', 'accesswise') }}</template>
-							</el-input>
-							<el-input v-if="data.settings.generals.right_click?.includes('disable_copy')" v-model="data.settings.generals.disable_copy_msg" @input="saveWrittenMessage" size="large" :placeholder="__('Disable Copy Message', 'accesswise')">
-								<template #prepend>{{ __('Disable Copy Message', 'accesswise') }}</template>
-							</el-input>
-							<template v-if="data.settings.generals.right_click?.includes('disable_right_click') || data.settings.generals.right_click?.includes('disable_copy')">
-								<el-text>{{ __('Exclude Post Types:', 'accesswise') }}</el-text>
-								<el-select multiple class="m-2" placeholder="Exclude post types" size="large" v-model="data.settings.generals.right_click_exclude_posts" @change="changeSetting($event)">
-									<el-option v-for="(item, key) in data.postTypes" :key="key" :label="item.label" :value="key" />
-								</el-select>
-								<el-text>{{ __('Exclude User Roles:', 'accesswise') }}</el-text>
-								<el-select multiple class="m-2" placeholder="Exclude user roles" size="large" v-model="data.settings.generals.right_click_exclude_roles" @change="changeSetting($event)">
-									<el-option v-for="(item, key) in data.userRoles" :key="key" :label="item" :value="key" />
-								</el-select>
-							</template>
-						</SettingSection>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -241,9 +171,10 @@ const updateSetting = () => {
 				margin: 30px 0;
 				max-width: 1124px;
 
-				// .setting-input {
-				// 	width: 70%;
-				// }
+				.section-title {
+					align-self: flex-start;
+					font-weight: bold;
+				}
 			}
 		}
 	}

@@ -36,6 +36,7 @@ class Protection {
 			$i18n['disableRightClickMsg'] = $this->general_settings['disable_right_click_msg'] ?? '';
 			$i18n['disableCopy']          = in_array( 'disable_copy', $this->general_settings['right_click'], true );
 			$i18n['disableCopyMsg']       = $this->general_settings['disable_copy_msg'] ?? '';
+			$i18n['disableKeys']          = $this->general_settings['disable_keys'] ?? [];
 			$i18n['excludedUserRoles']    = $this->general_settings['right_click_exclude_roles'] ?? [];
 			$i18n['excludedPostTypes']    = $this->general_settings['right_click_exclude_posts'] ?? [];
 			$i18n['currentUserRole']      = $this->current_user_role();

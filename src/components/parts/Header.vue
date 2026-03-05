@@ -18,22 +18,11 @@ watch( route, () => {
 		<div class="menu-bar">
 			<div class="logo-wrap">
 				<img
-					 :src="accesswise.plugin_url + 'public/logo/main-logo.svg'"
-					 alt="Accesswise Main Logo" />
+					:src="accesswise.plugin_url + 'public/logo/main-logo.svg'"
+					alt="Accesswise Main Logo" />
 				<el-tag :type="'danger'" effect="plain" round>v{{ accesswise.plugin_version }}</el-tag>
 			</div>
 			<div class="menu-wrap">
-				<div class="tabs">
-					<router-link
-								 to="/"
-								 :class="data.currentRouteName == 'welcome' ? 'menu-item active' : 'menu-item'"
-								 @click="data.currentRouteName = 'welcome'">{{ __("Welcome", "accesswise") }}</router-link>
-					<router-link
-								 to="/settings"
-								 :class="data.currentRouteName == 'settings' ? 'menu-item active' : 'menu-item'
-									"
-								 @click="data.currentRouteName = 'settings'">{{ __("Settings", "accesswise") }}</router-link>
-				</div>
 				<div class="actions">
 					<!-- <el-link type="primary">{{ __("Upgrade", "accesswise") }}</el-link> -->
 					<Help />
@@ -74,7 +63,7 @@ watch( route, () => {
 		}
 
 		.menu-wrap {
-			@include flex(row, space-between);
+			@include flex(row, flex-end);
 			width: 80%;
 
 			.tabs {

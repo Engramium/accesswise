@@ -8,9 +8,9 @@ import { StarFilled } from "@element-plus/icons-vue";
 			<div class="footer-rating-wrap">
 				<span>{{ __("If you like AccessWise, Leave ", "accesswise") }}</span>
 				<a
-				   href="https://wordpress.org/support/plugin/accesswise/reviews/?filter=5"
-				   target="_blank"
-				   rel="noopener noreferrer">
+					href="https://wordpress.org/support/plugin/accesswise/reviews/?filter=5"
+					target="_blank"
+					rel="noopener noreferrer">
 					<el-icon>
 						<StarFilled />
 					</el-icon>
@@ -33,37 +33,37 @@ import { StarFilled } from "@element-plus/icons-vue";
 			<div class="footer-menu-wrap">
 				<div class="footer-menu">
 					<el-link
-							 href="https://engramium.com/about"
-							 target="_blank"
-							 type="primary">{{ __("About", "accesswise") }}</el-link>
+						href="https://engramium.com/about"
+						target="_blank"
+						type="primary">{{ __("About", "accesswise") }}</el-link>
 					<el-link
-							 href="https://engramium.com/docs/"
-							 target="_blank"
-							 type="primary">{{ __("Documentation", "accesswise") }}</el-link>
+						href="https://engramium.com/docs/"
+						target="_blank"
+						type="primary">{{ __("Documentation", "accesswise") }}</el-link>
 					<el-link
-							 href="https://engramium.com/contact/"
-							 target="_blank"
-							 type="primary">{{ __("Contact", "accesswise") }}</el-link>
+						href="https://engramium.com/contact/"
+						target="_blank"
+						type="primary">{{ __("Contact", "accesswise") }}</el-link>
 				</div>
 				<div class="footer-socials">
 					<a
-					   class="icon"
-					   href="https://www.facebook.com/Engramium/"
-					   target="_blank"
-					   rel="noopener noreferrer"
-					   v-html="icons.facebook"></a>
+						class="icon"
+						href="https://www.facebook.com/Engramium/"
+						target="_blank"
+						rel="noopener noreferrer"
+						v-html="icons.facebook"></a>
 					<a
-					   class="icon"
-					   href="https://www.youtube.com/c/Engramium"
-					   target="_blank"
-					   rel="noopener noreferrer"
-					   v-html="icons.youtube"></a>
+						class="icon"
+						href="https://www.youtube.com/c/Engramium"
+						target="_blank"
+						rel="noopener noreferrer"
+						v-html="icons.youtube"></a>
 					<a
-					   class="icon"
-					   href="https://twitter.com/engramium"
-					   target="_blank"
-					   rel="noopener noreferrer"
-					   v-html="icons.x"></a>
+						class="icon"
+						href="https://twitter.com/engramium"
+						target="_blank"
+						rel="noopener noreferrer"
+						v-html="icons.x"></a>
 				</div>
 			</div>
 		</div>

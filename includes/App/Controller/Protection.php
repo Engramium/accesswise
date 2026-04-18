@@ -16,7 +16,7 @@ class Protection {
 
 	use \Engramium\Accesswise\Traits\Singleton;
 
-	private $general_settings;
+	private $protection_settings;
 
 	/**
 	 * initialization function
@@ -26,19 +26,19 @@ class Protection {
 	 * @return void
 	 */
 	public function init() {
-		$this->general_settings = Base::instance()->settings['generals'];
+		$this->protection_settings = Base::instance()->settings['protections'] ?? [];
 		add_filter( 'accesswise/frontend/i18n', [$this, 'modify_i18n_to_enable_protection'], 20, 1 );
 	}
 
 	public function modify_i18n_to_enable_protection( $i18n ) {
-		if ( isset( $this->general_settings['right_click'] ) && is_array( $this->general_settings['right_click'] ) ) {
-			$i18n['disableRightClick']    = in_array( 'disable_right_click', $this->general_settings['right_click'], true );
-			$i18n['disableRightClickMsg'] = $this->general_settings['disable_right_click_msg'] ?? '';
-			$i18n['disableCopy']          = in_array( 'disable_copy', $this->general_settings['right_click'], true );
-			$i18n['disableCopyMsg']       = $this->general_settings['disable_copy_msg'] ?? '';
-			$i18n['disableKeys']          = $this->general_settings['disable_keys'] ?? [];
-			$i18n['excludedUserRoles']    = $this->general_settings['right_click_exclude_roles'] ?? [];
-			$i18n['excludedPostTypes']    = $this->general_settings['right_click_exclude_posts'] ?? [];
+		if ( isset( $this->protection_settings['right_click'] ) && is_array( $this->protection_settings['right_click'] ) ) {
+			$i18n['disableRightClick']    = in_array( 'disable_right_click', $this->protection_settings['right_click'], true );
+			$i18n['disableRightClickMsg'] = $this->protection_settings['disable_right_click_msg'] ?? '';
+			$i18n['disableCopy']          = in_array( 'disable_copy', $this->protection_settings['right_click'], true );
+			$i18n['disableCopyMsg']       = $this->protection_settings['disable_copy_msg'] ?? '';
+			$i18n['disableKeys']          = $this->protection_settings['disable_keys'] ?? [];
+			$i18n['excludedUserRoles']    = $this->protection_settings['right_click_exclude_roles'] ?? [];
+			$i18n['excludedPostTypes']    = $this->protection_settings['right_click_exclude_posts'] ?? [];
 			$i18n['currentUserRole']      = $this->current_user_role();
 			$i18n['currentPostType']      = get_post_type();
 		}

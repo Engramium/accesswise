@@ -37,7 +37,7 @@ class Accesswise {
 	 * @since 1.0.0
 	 */
 	public function define_constants() {
-		define( 'ACCESSWISE_VERSION', defined( 'ACCESSWISE_DEV' ) ? time() : '1.0.1' );
+		define( 'ACCESSWISE_VERSION', defined( 'ACCESSWISE_DEV' ) ? time() : '2.0.0' );
 		define( 'ACCESSWISE_PATH', \plugin_dir_path( __DIR__ ) );
 		define( 'ACCESSWISE_URL', \plugin_dir_url( __DIR__ ) );
 	}

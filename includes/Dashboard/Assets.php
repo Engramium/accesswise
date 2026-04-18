@@ -79,12 +79,15 @@ class Assets {
 	 * @since 1.0.0
 	 */
 	public function load_script_as_module( $tag, $handle, $src ) {
-		if ( 'accesswise-dashboard' === $handle ) {
-			$tag = '<script type="module" src="' . esc_url( $src ) . '"></script>';
-
+		if ( ! in_array( $handle, ['accesswise-dashboard', 'accesswise-frontend'], true ) ) {
 			return $tag;
 		}
 
+		$tag = '<script type="module" src="' . esc_url( $src ) . '"></script>';
+		if ( strpos( $src, 'localhost:' ) !== false ) {
+			$tag = '<script type="module" crossorigin src="' . esc_url( $src ) . '"></script>' . "\n";
+		}
+		
 		return $tag;
 	}
 }

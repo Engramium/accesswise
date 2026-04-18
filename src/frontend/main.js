@@ -44,32 +44,51 @@ function disableCopy () {
 	} );
 
 	document.addEventListener( 'keydown', function ( e ) {
-		const forbiddenKeys = [];
+		const forbiddenCtrlKeys = [];
 
 		for ( const key of accesswise.disableKeys ) {
 			if ( key === 'disable_ctrl_a' ) {
-				forbiddenKeys.push( 'A' );
+				forbiddenCtrlKeys.push( 'A' );
 			} else if ( key === 'disable_ctrl_c' ) {
-				forbiddenKeys.push( 'C' );
+				forbiddenCtrlKeys.push( 'C' );
 			} else if ( key === 'disable_ctrl_v' ) {
-				forbiddenKeys.push( 'V' );
+				forbiddenCtrlKeys.push( 'V' );
 			} else if ( key === 'disable_ctrl_x' ) {
-				forbiddenKeys.push( 'X' );
+				forbiddenCtrlKeys.push( 'X' );
 			} else if ( key === 'disable_ctrl_u' ) {
-				forbiddenKeys.push( 'Y' );
+				forbiddenCtrlKeys.push( 'U' );
 			} else if ( key === 'disable_ctrl_p' ) {
-				forbiddenKeys.push( 'P' );
+				forbiddenCtrlKeys.push( 'P' );
 			} else if ( key === 'disable_ctrl_s' ) {
-				forbiddenKeys.push( 'S' );
+				forbiddenCtrlKeys.push( 'S' );
+			} else if ( key === 'disable_ctrl_h' ) {
+				forbiddenCtrlKeys.push( 'H' );
+			} else if ( key === 'disable_ctrl_l' ) {
+				forbiddenCtrlKeys.push( 'L' );
+			} else if ( key === 'disable_ctrl_k' ) {
+				forbiddenCtrlKeys.push( 'K' );
+			} else if ( key === 'disable_ctrl_o' ) {
+				forbiddenCtrlKeys.push( 'O' );
+			} else if ( key === 'disable_ctrl_e' ) {
+				forbiddenCtrlKeys.push( 'E' );
 			}
 		}
 
-		if ( ( e.ctrlKey || e.metaKey ) && forbiddenKeys.includes( e.key.toUpperCase() ) ) {
+		// Handle Ctrl/Cmd + Key
+		if ( ( e.ctrlKey || e.metaKey ) && forbiddenCtrlKeys.includes( e.key.toUpperCase() ) ) {
 			e.preventDefault();
 			showMessage( accesswise.disableCopyMsg );
 		}
 
-		if ( e.key === 'F12' && accesswise.disableKeys.includes( 'disable_f12' ) ) {
+		// Handle Alt + Key
+		if ( e.altKey && e.key.toUpperCase() === 'D' && accesswise.disableKeys.includes( 'disable_alt_d' ) ) {
+			e.preventDefault();
+			showMessage( accesswise.disableCopyMsg );
+		}
+
+		// Handle Function Keys
+		const fKeys = ['F3', 'F6', 'F9', 'F12'];
+		if ( fKeys.includes( e.key ) && accesswise.disableKeys.includes( 'disable_' + e.key.toLowerCase() ) ) {
 			e.preventDefault();
 			showMessage( accesswise.disableCopyMsg );
 		}

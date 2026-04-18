@@ -26,7 +26,7 @@ class Toolbar {
 	 * @return void
 	 */
 	public function init() {
-		$this->general_settings = Base::instance()->settings['generals'];
+		$this->general_settings = Base::instance()->settings['generals'] ?? [];
 		add_action( 'after_setup_theme', [$this, 'hide_admin_bar'], PHP_INT_MAX );
 		add_action( 'admin_bar_menu', [$this, 'customize_admin_bar_for_public'], PHP_INT_MAX );
 	}

@@ -12,13 +12,33 @@ const getSettings = async () => {
 
 	res.then( ( response ) => {
 		if ( response.status ) {
-			data.settings = response.data;
-			data.settings.generals.disable_right_click_msg = data.settings.generals.disable_right_click_msg ?? 'Right click is disabled!';
-			data.settings.generals.disable_copy_msg = data.settings.generals.disable_copy_msg ?? 'Cut/Copy/Paste is disabled!';
-			data.settings.generals.disable_keys = data.settings.generals.disable_keys ?? [];
-			data.settings.generals.right_click_exclude_posts = data.settings.generals.right_click_exclude_posts ?? [];
-			data.settings.generals.right_click_exclude_roles = data.settings.generals.right_click_exclude_roles ?? [];
-		}
+				if (Array.isArray(response.data)) {
+					data.settings = {};
+				} else {
+					data.settings = response.data || {};
+				}
+
+				// generals defaults
+				data.settings.generals = data.settings.generals || {};
+				data.settings.generals.toolbar                   = data.settings.generals.toolbar ?? ['show_for_admins', 'show_for_non_admins'];
+				data.settings.generals.redirection_after_login   = data.settings.generals.redirection_after_login ?? 'default';
+				data.settings.generals.redirection_after_logout  = data.settings.generals.redirection_after_logout ?? 'default';
+				data.settings.generals.when_last_login           = data.settings.generals.when_last_login ?? [];
+
+				// protections defaults
+				data.settings.protections                              = data.settings.protections || {};
+				data.settings.protections.right_click                  = data.settings.protections.right_click ?? [];
+				data.settings.protections.disable_keys                 = data.settings.protections.disable_keys ?? [];
+				data.settings.protections.disable_right_click_msg      = data.settings.protections.disable_right_click_msg ?? 'Right click is disabled!';
+				data.settings.protections.disable_copy_msg             = data.settings.protections.disable_copy_msg ?? 'Cut/Copy/Paste is disabled!';
+				data.settings.protections.right_click_exclude_posts    = data.settings.protections.right_click_exclude_posts ?? [];
+				data.settings.protections.right_click_exclude_roles    = data.settings.protections.right_click_exclude_roles ?? ['administrator'];
+
+				// restrictions defaults
+				data.settings.restrictions                        = data.settings.restrictions || {};
+				data.settings.restrictions.private_website        = data.settings.restrictions.private_website ?? [];
+				data.settings.restrictions.public_website_contents = data.settings.restrictions.public_website_contents ?? '';
+			}
 	} );
 };
 
@@ -89,13 +109,12 @@ onMounted( () => {
 </template>
 
 <style scoped lang="scss">
-@import "./scss/_variables";
-@import "./scss/_mixins";
+
 
 .accesswise-layout {
 	@include flex(column, space-between, center);
 	height: 100%;
-	gap: 60px;
+	gap: 48px;
 }
 
 .accesswise-header,
@@ -106,7 +125,7 @@ onMounted( () => {
 
 .accesswise-content {
 	.content {
-		padding: 0 20px;
+		padding: 0 48px;
 	}
 }
 </style>

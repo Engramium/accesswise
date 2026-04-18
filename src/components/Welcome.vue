@@ -133,8 +133,7 @@ import { Right, StarFilled, Setting } from "@element-plus/icons-vue";
 	</div>
 </template>
 <style scoped lang="scss">
-@import "../scss/_variables";
-@import "../scss/_mixins";
+
 
 a {
 	text-decoration: none;

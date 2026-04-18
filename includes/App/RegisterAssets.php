@@ -77,11 +77,13 @@ class RegisterAssets {
 		$env = Helper::instance()->read_env_file();
 
 		if ( ! empty( $env ) ) {
-			// $this->add_script_to_auto_reload($env);
 			$port         = intval( isset( $env['VITE_PORT'] ) ? $env['VITE_PORT'] : 4000 );
 			$main_src     = "http://localhost:{$port}/src/main.js";
 			$frontend_src = "http://localhost:{$port}/src/frontend/main.js";
-			$version      = time();
+			$version      = null; // No version query string — let Vite handle cache busting via HMR
+
+			$this->add_script_to_auto_reload( $port );
+
 		} else {
 			$main_src     = ACCESSWISE_URL . 'dist/assets/admin.js';
 			$frontend_src = ACCESSWISE_URL . 'dist/assets/frontend/frontend.js';
@@ -133,15 +135,10 @@ class RegisterAssets {
 	 * @return void
 	 * @since 1.0.0
 	 */
-	public function add_script_to_auto_reload() {
-		$port    = intval( isset( $env['VITE_PORT'] ) ? $env['VITE_PORT'] : 4000 );
-		$dev_src = "//localhost:{$port}";
-		$script  = "import RefreshRuntime from '{$dev_src}/@react-refresh';";
-		$script .= ' RefreshRuntime.injectIntoGlobalHook(window);';
-		$script .= ' window.$RefreshReg$ = () => {};';
-		$script .= ' window.$RefreshSig$ = () => (type) => type;';
-		$script .= ' window.__vite_plugin_react_preamble_installed__ = true';
-
-		echo "<script type='module'>{$script}</script>";
+	public function add_script_to_auto_reload( $port ) {
+		// Inject @vite/client for HMR so Vite can reload the page when deps change
+		add_action( 'admin_head', function () use ( $port ) {
+			echo "<script type=\"module\" src=\"http://localhost:{$port}/@vite/client\"></script>\n";
+		} );
 	}
 }

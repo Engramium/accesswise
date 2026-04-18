@@ -40,8 +40,7 @@ watch( route, () => {
 	</div>
 </template>
 <style scoped lang='scss'>
-@import "../../scss/_variables";
-@import "../../scss/_mixins";
+
 
 .navigation {
 	@include flex(column, flex-start, center);

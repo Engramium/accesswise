@@ -17,6 +17,7 @@ class Redirection {
 	use \Engramium\Accesswise\Traits\Singleton;
 
 	private $general_settings;
+	private $restriction_settings;
 
 	/**
 	 * initialization function
@@ -26,7 +27,8 @@ class Redirection {
 	 * @return void
 	 */
 	public function init() {
-		$this->general_settings = Base::instance()->settings['generals'];
+		$this->general_settings     = Base::instance()->settings['generals'] ?? [];
+		$this->restriction_settings = Base::instance()->settings['restrictions'] ?? [];
 
 		if ( isset( $this->general_settings['redirection_after_login'] ) && 'default' !== $this->general_settings['redirection_after_login'] ) {
 			add_filter( 'login_redirect', [$this, 'login_redirection'], PHP_INT_MAX, 3 );
@@ -36,7 +38,7 @@ class Redirection {
 			add_action( 'wp_logout', [$this, 'logout_redirection'], PHP_INT_MAX );
 		}
 
-		if ( isset( $this->general_settings['private_website'] ) && is_array( $this->general_settings['private_website'] ) && in_array( 'logged_in_users', $this->general_settings['private_website'] ) ) {
+		if ( isset( $this->restriction_settings['private_website'] ) && is_array( $this->restriction_settings['private_website'] ) && in_array( 'logged_in_users', $this->restriction_settings['private_website'] ) ) {
 			add_action( 'template_redirect', [$this, 'restrict_access_to_logged_in_users'], PHP_INT_MAX );
 		}
 
@@ -61,8 +63,8 @@ class Redirection {
 		if ( ! is_user_logged_in() && ! is_admin() ) {
 			$redirect = true;
 
-			$str_pub_contents   = $this->general_settings['public_website_contents'] ?? '';
-			$array_pub_contents = ( ! empty( $this->general_settings['public_website_contents'] ) ) ? explode( PHP_EOL, $str_pub_contents ) : [];
+			$str_pub_contents   = $this->restriction_settings['public_website_contents'] ?? '';
+			$array_pub_contents = ( ! empty( $this->restriction_settings['public_website_contents'] ) ) ? explode( PHP_EOL, $str_pub_contents ) : [];
 
 			$allowed_pages = ['wp-login.php', 'register', 'password-reset'];
 

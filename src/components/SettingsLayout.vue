@@ -12,11 +12,10 @@ import Navigation from "./parts/Navigation.vue";
 	</div>
 </template>
 <style scoped lang='scss'>
-@import "../scss/_variables";
-@import "../scss/_mixins";
+
 
 .setting-layout {
-	@include flex(row, space-between, flex-start);
+	@include flex(row, flex-start, stretch);
 	gap: 20px;
 }
 
@@ -25,10 +24,12 @@ import Navigation from "./parts/Navigation.vue";
 	background: #fff;
 	padding: 20px;
 	border-radius: 5px;
-	box-shadow: $box_shadow;
 }
 
 .content-wrap {
-	// width: 100%;
+	flex: 1;
+	background: #fff;
+	padding: 30px;
+	border-radius: 5px;
 }
 </style>

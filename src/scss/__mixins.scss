@@ -1,3 +1,5 @@
+@use "__variables" as *;
+
 @mixin tablet_big {
 	@media (max-width: $tablet_big_breakpoint) {
 		@content;

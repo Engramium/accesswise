@@ -1,5 +1,4 @@
-@import './scss/_variables';
-@import './scss/_mixins';
+
 
 .toplevel_page_accesswise-settings {
 	#accesswise-dashboard-app {
@@ -38,7 +37,7 @@
 	}
 
 	#wpwrap {
-		background-color: #F8FAFC;
+		background-color: #F8F9F8;
 	}
 
 	#wpcontent {
@@ -54,7 +53,7 @@
 	}
 
 	.wrap {
-		background-color: #F8FAFC;
+		background-color: #F8F9F8;
 		margin: 0;
 		// height: calc(100vh - 32px);
 		// min-height: 1080px;

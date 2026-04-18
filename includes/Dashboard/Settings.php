@@ -60,25 +60,34 @@ class Settings {
 				'toolbar'                   => ['show_for_admins', 'show_for_non_admins'],
 				'redirection_after_login'   => 'default',
 				'redirection_after_logout'  => 'default',
-				'private_website'           => [],
-				'public_website_contents'   => '',
 				'when_last_login'           => [],
+			],
+			'protections' => [
 				'right_click'               => [],
 				'disable_keys'              => [],
 				'disable_right_click_msg'   => 'Right click is disabled!',
 				'disable_copy_msg'          => 'Cut/Copy/Paste is disabled!',
 				'right_click_exclude_posts' => [],
 				'right_click_exclude_roles' => ['administrator']
-			]
+			],
+			'restrictions' => [
+				'private_website'           => [],
+				'public_website_contents'   => '',
+			],
 		];
 	}
 
 	public function filter_inputs( $input_data, $allowed_structure ) {
 		$filtered_data = [];
 
-		foreach ( $allowed_structure['generals'] as $key => $value ) {
-			if ( array_key_exists( $key, $input_data['generals'] ) ) {
-				$filtered_data['generals'][$key] = $input_data['generals'][$key];
+		foreach ( $allowed_structure as $section => $section_defaults ) {
+			if ( ! isset( $input_data[ $section ] ) || ! is_array( $input_data[ $section ] ) ) {
+				continue;
+			}
+			foreach ( $section_defaults as $key => $value ) {
+				if ( array_key_exists( $key, $input_data[ $section ] ) ) {
+					$filtered_data[ $section ][ $key ] = $input_data[ $section ][ $key ];
+				}
 			}
 		}
 

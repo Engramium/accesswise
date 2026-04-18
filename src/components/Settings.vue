@@ -146,8 +146,7 @@ const updateSetting = () => {
 	</div>
 </template>
 <style scoped lang="scss">
-@import "../scss/_variables";
-@import "../scss/_mixins";
+
 
 .feature-wrap {
 	&:not(:first-child) {

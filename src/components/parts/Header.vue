@@ -32,8 +32,7 @@ watch( route, () => {
 	</div>
 </template>
 <style scoped lang='scss'>
-@import "../../scss/_variables";
-@import "../../scss/_mixins";
+
 
 .accesswise-header {
 	.menu-bar {

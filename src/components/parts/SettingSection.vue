@@ -33,18 +33,16 @@ const props = defineProps( [ "title", "helpText", "helpURL" ] );
 </template>
 
 <style lang="scss" scoped>
-@import "../../scss/_variables";
-@import "../../scss/_mixins";
+
 
 .setting-wrap {
-	@include flex(row, flex-start, flex-start);
+	@include flex(column, flex-start, flex-start);
 	width: 100%;
-	gap: 30px;
+	gap: 15px;
 
 	.setting-title {
 		@include flex(row, flex-start);
 		gap: 10px;
-		width: 30%;
 
 		.help-icon {
 			@include flex();

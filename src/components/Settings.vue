@@ -56,7 +56,7 @@ const updateSetting = () => {
 							</el-checkbox-group>
 							<template v-if="data.settings.generals.right_click?.includes('disable_right_click') || data.settings.generals.right_click?.includes('disable_copy')">
 								<el-text class="section-title" tag="p">{{ __('Disable Keys:', 'accesswise') }}</el-text>
-								<el-checkbox-group class="setting-input" v-model="data.settings.generals.disable_keys" @change="changeSetting($event)">
+								<el-checkbox-group class="setting-input" v-model="data.settings.generals.rc_disable_keys" @change="changeSetting($event)">
 									<el-checkbox :label="__('Disable Text Select', 'accesswise')" value="disable_select" />
 									<el-checkbox :label="__('Disable Image Drag', 'accesswise')" value="disable_drag" />
 									<el-checkbox :label="__('Disable Ctrl + A', 'accesswise')" value="disable_ctrl_a" />
@@ -71,7 +71,7 @@ const updateSetting = () => {
 							</template>
 							<template v-if="data.settings.generals.right_click?.includes('disable_right_click')">
 								<el-text class="section-title" tag="p">{{ __('Disable Right Click Message:', 'accesswise') }}</el-text>
-								<el-input v-model="data.settings.generals.disable_right_click_msg" @input="saveWrittenMessage" size="large" :placeholder="__('Disable Right Click Message', 'accesswise')"></el-input>
+								<el-input v-model="data.settings.generals.disable_rc_disable_msg" @input="saveWrittenMessage" size="large" :placeholder="__('Disable Right Click Message', 'accesswise')"></el-input>
 							</template>
 							<template v-if="data.settings.generals.right_click?.includes('disable_copy')">
 								<el-text class="section-title" tag="p">{{ __('Disable Copy Message:', 'accesswise') }}</el-text>
@@ -79,11 +79,11 @@ const updateSetting = () => {
 							</template>
 							<template v-if="data.settings.generals.right_click?.includes('disable_right_click') || data.settings.generals.right_click?.includes('disable_copy')">
 								<el-text class="section-title" tag="p">{{ __('Exclude Post Types:', 'accesswise') }}</el-text>
-								<el-select multiple class="m-2" placeholder="Exclude post types" size="large" v-model="data.settings.generals.right_click_exclude_posts" @change="changeSetting($event)">
+								<el-select multiple class="m-2" placeholder="Exclude post types" size="large" v-model="data.settings.generals.rc_exclude_posts" @change="changeSetting($event)">
 									<el-option v-for="(item, key) in data.postTypes" :key="key" :label="item.label" :value="key" />
 								</el-select>
 								<el-text class="section-title" tag="p">{{ __('Exclude User Roles:', 'accesswise') }}</el-text>
-								<el-select multiple class="m-2" placeholder="Exclude user roles" size="large" v-model="data.settings.generals.right_click_exclude_roles" @change="changeSetting($event)">
+								<el-select multiple class="m-2" placeholder="Exclude user roles" size="large" v-model="data.settings.generals.rc_exclude_roles" @change="changeSetting($event)">
 									<el-option v-for="(item, key) in data.userRoles" :key="key" :label="item" :value="key" />
 								</el-select>
 							</template>

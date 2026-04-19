@@ -41,11 +41,14 @@ class Settings {
 
 	public function sanitize_inputs( $inputs ) {
 		$text_areas = ['public_website_contents'];
+		$booleans   = ['copy_protection', 'right_click', 'cp_text_selection', 'cp_exclude_inputs', 'cp_protect_no_js', 'rc_disable_images', 'rc_disable_links', 'rc_disable_dev_keys', 'rc_disable_drag_drop', 'rc_disable_left_click', 'rc_disable_scroll_img_mobile', 'rc_protect_no_js'];
 		foreach ( $inputs as $key => &$value ) {
 			if ( is_array( $value ) || is_object( $value ) ) {
 				$value = $this->sanitize_inputs( $value );
 			} else if ( in_array( $key, $text_areas ) ) {
 				$value = sanitize_textarea_field( $value );
+			} else if ( in_array( $key, $booleans ) ) {
+				$value = rest_sanitize_boolean( $value );
 			} else {
 				$value = sanitize_text_field( $value );
 			}
@@ -56,24 +59,44 @@ class Settings {
 
 	public function get_default_settings() {
 		return [
-			'generals' => [
-				'toolbar'                   => ['show_for_admins', 'show_for_non_admins'],
-				'redirection_after_login'   => 'default',
-				'redirection_after_logout'  => 'default',
-				'when_last_login'           => [],
+			'generals'     => [
+				'toolbar'                  => ['show_for_admins', 'show_for_non_admins'],
+				'redirection_after_login'  => 'default',
+				'redirection_after_logout' => 'default',
+				'when_last_login'          => []
 			],
-			'protections' => [
-				'right_click'               => [],
-				'disable_keys'              => [],
-				'disable_right_click_msg'   => 'Right click is disabled!',
-				'disable_copy_msg'          => 'Cut/Copy/Paste is disabled!',
-				'right_click_exclude_posts' => [],
-				'right_click_exclude_roles' => ['administrator']
+			'protections'  => [
+				// Copy protection
+				'copy_protection'              => false,
+				'cp_exclude_posts'             => [],
+				'cp_exclude_individual_posts'  => [],
+				'cp_exclude_roles'             => ['administrator'],
+				'cp_text_selection'            => false,
+				'cp_exclude_inputs'            => false,
+				'cp_exclude_css_selector'      => '',
+				'cp_msg'                       => 'Cut/Copy/Paste is disabled!',
+				'cp_protect_no_js'             => false,
+				'cp_no_js_msg'                 => 'Javascript is disabled!',
+				// Disable Right click
+				'right_click'                  => false,
+				'rc_exclude_posts'             => [],
+				'rc_disable_images'            => false,
+				'rc_disable_links'             => false,
+				'rc_disable_dev_keys'          => false,
+				'rc_disable_drag_drop'         => false,
+				'rc_disable_keys'              => [],
+				'rc_disable_left_click'        => false,
+				'rc_disable_scroll_img_mobile' => false,
+				'rc_disable_msg'               => 'Right click is disabled!',
+				'rc_protect_no_js'             => false,
+				'rc_no_js_msg'                 => 'Javascript is disabled!',
+				'rc_exclude_roles'             => ['administrator'],
+				'rc_protect_individual_posts'  => []
 			],
 			'restrictions' => [
-				'private_website'           => [],
-				'public_website_contents'   => '',
-			],
+				'private_website'         => [],
+				'public_website_contents' => ''
+			]
 		];
 	}
 
@@ -81,12 +104,12 @@ class Settings {
 		$filtered_data = [];
 
 		foreach ( $allowed_structure as $section => $section_defaults ) {
-			if ( ! isset( $input_data[ $section ] ) || ! is_array( $input_data[ $section ] ) ) {
+			if ( ! isset( $input_data[$section] ) || ! is_array( $input_data[$section] ) ) {
 				continue;
 			}
 			foreach ( $section_defaults as $key => $value ) {
-				if ( array_key_exists( $key, $input_data[ $section ] ) ) {
-					$filtered_data[ $section ][ $key ] = $input_data[ $section ][ $key ];
+				if ( array_key_exists( $key, $input_data[$section] ) ) {
+					$filtered_data[$section][$key] = $input_data[$section][$key];
 				}
 			}
 		}

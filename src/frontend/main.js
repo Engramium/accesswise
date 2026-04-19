@@ -3,15 +3,22 @@
 } )( jQuery, window );
 
 function protection () {
-	if ( accesswise.excludedUserRoles.includes( accesswise.currentUserRole ) || accesswise.excludedPostTypes.includes( accesswise.currentPostType ) ) {
-		return;
+	// Copy Protection Handler
+	if ( accesswise.copyProtection ) {
+		const isExcluded = accesswise.copyProtectionExcludeRoles.includes( accesswise.currentUserRole ) ||
+			accesswise.copyProtectionExcludePosts.includes( accesswise.currentPostType );
+		if ( !isExcluded ) {
+			disableCopy();
+		}
 	}
 
-	if ( accesswise.disableCopy ) {
-		disableCopy();
-	}
+	// Right Click Protection Handler
 	if ( accesswise.disableRightClick ) {
-		disableRightClick();
+		const isExcluded = accesswise.rightClickExcludeRoles.includes( accesswise.currentUserRole ) ||
+			accesswise.rightClickExcludePosts.includes( accesswise.currentPostType );
+		if ( !isExcluded ) {
+			disableRightClick();
+		}
 	}
 }
 
@@ -32,14 +39,14 @@ function disableCopy () {
 	document.addEventListener( 'selectstart', function ( e ) {
 		if ( accesswise.disableKeys.includes( 'disable_select' ) ) {
 			e.preventDefault();
-			showMessage( accesswise.disableCopyMsg );
+			showMessage( accesswise.copyProtectionMsg );
 		}
 	} );
 
 	document.addEventListener( 'dragstart', function ( e ) {
 		if ( accesswise.disableKeys.includes( 'disable_drag' ) ) {
 			e.preventDefault();
-			showMessage( accesswise.disableCopyMsg );
+			showMessage( accesswise.copyProtectionMsg );
 		}
 	} );
 
@@ -77,17 +84,17 @@ function disableCopy () {
 		// Handle Ctrl/Cmd + Key
 		if ( ( e.ctrlKey || e.metaKey ) && forbiddenCtrlKeys.includes( e.key.toUpperCase() ) ) {
 			e.preventDefault();
-			showMessage( accesswise.disableCopyMsg );
+			showMessage( accesswise.copyProtectionMsg );
 		}
 
 		// Handle Alt + Key
 		if ( e.altKey && e.key.toUpperCase() === 'D' && accesswise.disableKeys.includes( 'disable_alt_d' ) ) {
 			e.preventDefault();
-			showMessage( accesswise.disableCopyMsg );
+			showMessage( accesswise.copyProtectionMsg );
 		}
 
 		// Handle Function Keys
-		const fKeys = ['F3', 'F6', 'F9', 'F12'];
+		const fKeys = [ 'F3', 'F6', 'F9', 'F12' ];
 		if ( fKeys.includes( e.key ) && accesswise.disableKeys.includes( 'disable_' + e.key.toLowerCase() ) ) {
 			e.preventDefault();
 			showMessage( accesswise.disableCopyMsg );

@@ -1,7 +1,7 @@
 <script setup>
 import { useDebounceFn } from "@vueuse/core";
 import { data, fn } from "../utils/data";
-import SettingSection from "./parts/SettingSection.vue";
+import SettingItem from './parts/SettingItem.vue';
 
 const changeSetting = () => {
 	updateSetting();
@@ -14,7 +14,7 @@ const saveWrittenMessage = useDebounceFn( () => {
 const updateSetting = () => {
 	const res = fn.fetchAdminAjax( accesswise.admin_ajax, "post", {
 		action: "accesswise_update_settings",
-		generals: data.settings.generals,
+		settings: data.settings,
 		nonce: accesswise.nonce,
 	} );
 
@@ -45,53 +45,43 @@ const updateSetting = () => {
 			<div class="feature-content">
 				<h2 class="title">{{ __('General', 'accesswise') }}</h2>
 				<p class="description">{{ __('Lorem ipsum dolor sit amet consectetur. Purus interdum mi pellentesque nulla viverra pellentesque nulla consectetur.', 'accesswise') }}</p>
-				<div class="grid">
-					<div class="grid-item">
-						<SettingSection :title="__('Toolbar', 'accesswise')" :helpText="__('The admin Toolbar is a horizontal black bar at the top of the screen.', 'accesswise')" :helpURL="__('https://example.com/toolbar-help', 'accesswise')">
-							<el-checkbox-group class="setting-input" v-model="data.settings.generals.toolbar" @change="changeSetting($event)">
-								<div>
-									<el-checkbox :label="__('Show the Toolbar for logged-in admins', 'accesswise')" value="show_for_admins" />
-								</div>
-								<div>
-									<el-checkbox :label="__('Show the Toolbar for logged-in members (non-admins)', 'accesswise')" value="show_for_non_admins" />
-								</div>
-								<div>
-									<el-checkbox :label="__('Show the Toolbar for logged out users', 'accesswise')" value="show_for_public" />
-								</div>
-							</el-checkbox-group>
-						</SettingSection>
-					</div>
-					<div class="grid-item">
-						<SettingSection title="Redirection (After Login)" helpText="Forward to your preferred page or post type, depending on the user's logged-in state." helpURL="#">
-							<el-select class="m-2" placeholder="Select" size="large" style="width: 240px" v-model="data.settings.generals.redirection_after_login" @change="changeSetting($event)">
-								<el-option v-for="(item, key) in data.pages" :key="key" :label="item" :value="key" />
-							</el-select>
-						</SettingSection>
-					</div>
-					<div class="grid-item">
-						<SettingSection title="Redirection (After Logout)" helpText="Forward to your preferred page or post type, depending on the user's logged-out state." helpURL="#">
-							<el-select class="m-2" placeholder="Select" size="large" style="width: 240px" v-model="data.settings.generals.redirection_after_logout" @change="changeSetting($event)">
-								<el-option v-for="(item, key) in data.pages" :key="key" :label="item" :value="key" />
-							</el-select>
-						</SettingSection>
-					</div>
-					<div class="grid-item">
-						<SettingSection title="When Last Login" helpText="When Last Login" helpURL="#">
-							<el-checkbox-group class="setting-input" v-model="data.settings.generals.when_last_login" @change="changeSetting($event)">
-								<div>
-									<el-checkbox :label="__('Show Last login in users', 'accesswise')" value="show_last_login" />
-								</div>
-							</el-checkbox-group>
-						</SettingSection>
-					</div>
+				<div class="items-wrap">
+					<SettingItem :title="__('Toolbar', 'accesswise')">
+						<el-checkbox-group class="setting-input" v-model="data.settings.generals.toolbar" @change="changeSetting($event)">
+							<div>
+								<el-checkbox :label="__('Show the Toolbar for logged-in admins', 'accesswise')" value="show_for_admins" />
+							</div>
+							<div>
+								<el-checkbox :label="__('Show the Toolbar for logged-in members (non-admins)', 'accesswise')" value="show_for_non_admins" />
+							</div>
+							<div>
+								<el-checkbox :label="__('Show the Toolbar for logged out users', 'accesswise')" value="show_for_public" />
+							</div>
+						</el-checkbox-group>
+					</SettingItem>
+					<SettingItem :title="__('Redirection (After Login)', 'accesswise')">
+						<el-select class="m-2" placeholder="Select" size="large" v-model="data.settings.generals.redirection_after_login" @change="changeSetting($event)">
+							<el-option v-for="(item, key) in data.pages" :key="key" :label="item" :value="key" />
+						</el-select>
+					</SettingItem>
+					<SettingItem :title="__('Redirection (After Logout)', 'accesswise')">
+						<el-select class="m-2" placeholder="Select" size="large" v-model="data.settings.generals.redirection_after_logout" @change="changeSetting($event)">
+							<el-option v-for="(item, key) in data.pages" :key="key" :label="item" :value="key" />
+						</el-select>
+					</SettingItem>
+					<SettingItem :title="__('When Last Login', 'accesswise')">
+						<el-checkbox-group class="setting-input" v-model="data.settings.generals.when_last_login" @change="changeSetting($event)">
+							<div>
+								<el-checkbox :label="__('Show Last login in users', 'accesswise')" value="show_last_login" />
+							</div>
+						</el-checkbox-group>
+					</SettingItem>
 				</div>
 			</div>
 		</div>
 	</div>
 </template>
 <style scoped lang="scss">
-
-
 .feature-wrap {
 	&:not(:first-child) {
 		margin-top: 50px;
@@ -119,16 +109,9 @@ const updateSetting = () => {
 			margin-bottom: 20px;
 		}
 
-		.grid {
-			.grid-item {
-				padding: 20px 0;
-				max-width: 1124px;
-
-				.section-title {
-					align-self: flex-start;
-					font-weight: bold;
-				}
-			}
+		.items-wrap {
+			@include flex(column, flex-start, flex-start);
+			gap: 20px;
 		}
 	}
 }

@@ -1,7 +1,6 @@
 <script setup>
 import { data, fn, icons } from "./utils/data";
 import Header from "./components/parts/Header.vue";
-import Footer from "./components/parts/Footer.vue";
 import { onMounted } from "vue";
 
 const getSettings = async () => {
@@ -12,33 +11,37 @@ const getSettings = async () => {
 
 	res.then( ( response ) => {
 		if ( response.status ) {
-				if (Array.isArray(response.data)) {
-					data.settings = {};
-				} else {
-					data.settings = response.data || {};
-				}
-
-				// generals defaults
-				data.settings.generals = data.settings.generals || {};
-				data.settings.generals.toolbar                   = data.settings.generals.toolbar ?? ['show_for_admins', 'show_for_non_admins'];
-				data.settings.generals.redirection_after_login   = data.settings.generals.redirection_after_login ?? 'default';
-				data.settings.generals.redirection_after_logout  = data.settings.generals.redirection_after_logout ?? 'default';
-				data.settings.generals.when_last_login           = data.settings.generals.when_last_login ?? [];
-
-				// protections defaults
-				data.settings.protections                              = data.settings.protections || {};
-				data.settings.protections.right_click                  = data.settings.protections.right_click ?? [];
-				data.settings.protections.disable_keys                 = data.settings.protections.disable_keys ?? [];
-				data.settings.protections.disable_right_click_msg      = data.settings.protections.disable_right_click_msg ?? 'Right click is disabled!';
-				data.settings.protections.disable_copy_msg             = data.settings.protections.disable_copy_msg ?? 'Cut/Copy/Paste is disabled!';
-				data.settings.protections.right_click_exclude_posts    = data.settings.protections.right_click_exclude_posts ?? [];
-				data.settings.protections.right_click_exclude_roles    = data.settings.protections.right_click_exclude_roles ?? ['administrator'];
-
-				// restrictions defaults
-				data.settings.restrictions                        = data.settings.restrictions || {};
-				data.settings.restrictions.private_website        = data.settings.restrictions.private_website ?? [];
-				data.settings.restrictions.public_website_contents = data.settings.restrictions.public_website_contents ?? '';
+			if ( Array.isArray( response.data ) ) {
+				data.settings = {};
+			} else {
+				data.settings = response.data || {};
 			}
+
+			// generals defaults
+			data.settings.generals = data.settings.generals || {};
+			data.settings.generals.toolbar = data.settings.generals.toolbar ?? [ 'show_for_admins', 'show_for_non_admins' ];
+			data.settings.generals.redirection_after_login = data.settings.generals.redirection_after_login ?? 'default';
+			data.settings.generals.redirection_after_logout = data.settings.generals.redirection_after_logout ?? 'default';
+			data.settings.generals.when_last_login = data.settings.generals.when_last_login ?? [];
+
+			// protections defaults
+			data.settings.protections = data.settings.protections || {};
+			data.settings.protections.copy_protection = data.settings.protections.copy_protection ?? false;
+			data.settings.protections.cp_msg = data.settings.protections.cp_msg ?? 'Cut/Copy/Paste is disabled!';
+			data.settings.protections.cp_exclude_posts = data.settings.protections.cp_exclude_posts ?? [];
+			data.settings.protections.cp_exclude_roles = data.settings.protections.cp_exclude_roles ?? [ 'administrator' ];
+
+			data.settings.protections.right_click = data.settings.protections.right_click ?? false;
+			data.settings.protections.rc_disable_keys = data.settings.protections.rc_disable_keys ?? [];
+			data.settings.protections.rc_disable_msg = data.settings.protections.rc_disable_msg ?? 'Right click is disabled!';
+			data.settings.protections.rc_exclude_posts = data.settings.protections.rc_exclude_posts ?? [];
+			data.settings.protections.rc_exclude_roles = data.settings.protections.rc_exclude_roles ?? [ 'administrator' ];
+
+			// restrictions defaults
+			data.settings.restrictions = data.settings.restrictions || {};
+			data.settings.restrictions.private_website = data.settings.restrictions.private_website ?? [];
+			data.settings.restrictions.public_website_contents = data.settings.restrictions.public_website_contents ?? '';
+		}
 	} );
 };
 
@@ -104,13 +107,10 @@ onMounted( () => {
 				<router-view></router-view>
 			</div>
 		</div>
-		<Footer></Footer>
 	</div>
 </template>
 
 <style scoped lang="scss">
-
-
 .accesswise-layout {
 	@include flex(column, space-between, center);
 	height: 100%;

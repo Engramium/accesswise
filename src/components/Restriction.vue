@@ -1,7 +1,7 @@
 <script setup>
 import { useDebounceFn } from "@vueuse/core";
 import { data, fn } from "../utils/data";
-import SettingSection from "./parts/SettingSection.vue";
+import SettingItem from "./parts/SettingItem.vue";
 
 const changeSetting = () => {
 	updateSetting();
@@ -14,7 +14,7 @@ const saveWrittenMessage = useDebounceFn( () => {
 const updateSetting = () => {
 	const res = fn.fetchAdminAjax( accesswise.admin_ajax, "post", {
 		action: "accesswise_update_settings",
-		restrictions: data.settings.restrictions,
+		settings: data.settings,
 		nonce: accesswise.nonce,
 	} );
 
@@ -45,28 +45,24 @@ const updateSetting = () => {
 			<div class="feature-content">
 				<h2 class="title">{{ __('Restriction', 'accesswise') }}</h2>
 				<p class="description">{{ __('Lorem ipsum dolor sit amet consectetur. Purus interdum mi pellentesque nulla viverra pellentesque nulla consectetur.', 'accesswise') }}</p>
-				<div class="grid">
-					<div class="grid-item">
-						<SettingSection title="Private Website" helpText="Login and Registration content will remain publicly visible." helpURL="#">
-							<el-checkbox-group class="setting-input" v-model="data.settings.restrictions.private_website" @change="changeSetting($event)">
-								<div>
-									<el-checkbox :label="__('Restrict site access to only logged-in members', 'accesswise')" value="logged_in_users" />
-								</div>
-							</el-checkbox-group>
-							<div v-if="data.settings.restrictions.private_website?.includes('logged_in_users')" class="setting-input">
-								<el-input v-model="data.settings.restrictions.public_website_contents" @input="saveWrittenMessage" :autosize="{ minRows: 4, maxRows: 10 }" type="textarea" placeholder="e.g. /groups/" />
-								<label>{{ __('Enter URLs or URI fragments (e.g. /groups/) to remain publicly visible always. Enter one URL or URI per line.', 'accesswise') }}</label>
+				<div class="items-wrap">
+					<SettingItem :title="__('Private Website', 'accesswise')">
+						<el-checkbox-group class="setting-input" v-model="data.settings.restrictions.private_website" @change="changeSetting($event)">
+							<div>
+								<el-checkbox :label="__('Restrict site access to only logged-in members', 'accesswise')" value="logged_in_users" />
 							</div>
-						</SettingSection>
-					</div>
+						</el-checkbox-group>
+						<div v-if="data.settings.restrictions.private_website?.includes('logged_in_users')" class="setting-input">
+							<el-input v-model="data.settings.restrictions.public_website_contents" @input="saveWrittenMessage" :autosize="{ minRows: 4, maxRows: 10 }" type="textarea" placeholder="e.g. /groups/" />
+							<label>{{ __('Enter URLs or URI fragments (e.g. /groups/) to remain publicly visible always. Enter one URL or URI per line.', 'accesswise') }}</label>
+						</div>
+					</SettingItem>
 				</div>
 			</div>
 		</div>
 	</div>
 </template>
 <style scoped lang="scss">
-
-
 .feature-wrap {
 	&:not(:first-child) {
 		margin-top: 50px;
@@ -94,16 +90,9 @@ const updateSetting = () => {
 			margin-bottom: 20px;
 		}
 
-		.grid {
-			.grid-item {
-				padding: 20px 0;
-				max-width: 1124px;
-
-				.section-title {
-					align-self: flex-start;
-					font-weight: bold;
-				}
-			}
+		.items-wrap {
+			@include flex(column, flex-start, flex-start);
+			gap: 20px;
 		}
 	}
 }

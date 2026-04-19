@@ -31,16 +31,22 @@ class Protection {
 	}
 
 	public function modify_i18n_to_enable_protection( $i18n ) {
-		if ( isset( $this->protection_settings['right_click'] ) && is_array( $this->protection_settings['right_click'] ) ) {
-			$i18n['disableRightClick']    = in_array( 'disable_right_click', $this->protection_settings['right_click'], true );
-			$i18n['disableRightClickMsg'] = $this->protection_settings['disable_right_click_msg'] ?? '';
-			$i18n['disableCopy']          = in_array( 'disable_copy', $this->protection_settings['right_click'], true );
-			$i18n['disableCopyMsg']       = $this->protection_settings['disable_copy_msg'] ?? '';
-			$i18n['disableKeys']          = $this->protection_settings['disable_keys'] ?? [];
-			$i18n['excludedUserRoles']    = $this->protection_settings['right_click_exclude_roles'] ?? [];
-			$i18n['excludedPostTypes']    = $this->protection_settings['right_click_exclude_posts'] ?? [];
-			$i18n['currentUserRole']      = $this->current_user_role();
-			$i18n['currentPostType']      = get_post_type();
+		if ( ! empty( $this->protection_settings ) ) {
+			$opts = $this->protection_settings;
+
+			$i18n['copyProtection']             = ! empty( $opts['copy_protection'] );
+			$i18n['copyProtectionMsg']          = $opts['cp_msg'] ?? '';
+			$i18n['copyProtectionExcludeRoles'] = $opts['cp_exclude_roles'] ?? [];
+			$i18n['copyProtectionExcludePosts'] = $opts['cp_exclude_posts'] ?? [];
+
+			$i18n['disableRightClick']          = ! empty( $opts['right_click'] );
+			$i18n['disableRightClickMsg']       = $opts['rc_disable_msg'] ?? '';
+			$i18n['rightClickExcludeRoles']     = $opts['rc_exclude_roles'] ?? [];
+			$i18n['rightClickExcludePosts']     = $opts['rc_exclude_posts'] ?? [];
+
+			$i18n['disableKeys']                = $opts['rc_disable_keys'] ?? [];
+			$i18n['currentUserRole']            = $this->current_user_role();
+			$i18n['currentPostType']            = get_post_type();
 		}
 
 		return $i18n;

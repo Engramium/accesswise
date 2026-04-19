@@ -44,14 +44,12 @@ class AjaxHandler {
 	public function update_settings() {
 		$this->check_nonce();
 		$request = $_REQUEST;
-		unset( $request['action'] );
-		unset( $request['nonce'] );
-		$status = Settings::instance()->update_settings( $request );
-		$msg    = $status ? 'Settings updated.' : 'Settings nothing to update/ failed.';
+		$status  = Settings::instance()->update_settings( $request['settings'] ?? [] );
+		$msg     = $status ? 'Settings updated.' : 'Settings nothing to update/ failed.';
 		wp_send_json( [
 			'status' => $status,
 			'msg'    => $msg,
-			'data'   => $request
+			'data'   => $request['settings'] ?? []
 		] );
 	}
 

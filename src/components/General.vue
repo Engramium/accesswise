@@ -44,7 +44,7 @@ const updateSetting = () => {
 		<div class="feature-wrap">
 			<div class="feature-content">
 				<h2 class="title">{{ __('General', 'accesswise') }}</h2>
-				<p class="description">{{ __('Lorem ipsum dolor sit amet consectetur. Purus interdum mi pellentesque nulla viverra pellentesque nulla consectetur.', 'accesswise') }}</p>
+				<p class="description">{{ __('Configure toolbar visibility, login and logout redirects, and user last-login tracking.', 'accesswise') }}</p>
 				<div class="items-wrap">
 					<SettingItem :title="__('Toolbar', 'accesswise')">
 						<el-checkbox-group class="setting-input" v-model="data.settings.generals.toolbar" @change="changeSetting($event)">
@@ -60,12 +60,12 @@ const updateSetting = () => {
 						</el-checkbox-group>
 					</SettingItem>
 					<SettingItem :title="__('Redirection (After Login)', 'accesswise')">
-						<el-select class="m-2" placeholder="Select" size="large" v-model="data.settings.generals.redirection_after_login" @change="changeSetting($event)">
+						<el-select class="m-2" placeholder="Select" filterable size="large" v-model="data.settings.generals.redirection_after_login" @change="changeSetting($event)">
 							<el-option v-for="(item, key) in data.pages" :key="key" :label="item" :value="key" />
 						</el-select>
 					</SettingItem>
 					<SettingItem :title="__('Redirection (After Logout)', 'accesswise')">
-						<el-select class="m-2" placeholder="Select" size="large" v-model="data.settings.generals.redirection_after_logout" @change="changeSetting($event)">
+						<el-select class="m-2" placeholder="Select" filterable size="large" v-model="data.settings.generals.redirection_after_logout" @change="changeSetting($event)">
 							<el-option v-for="(item, key) in data.pages" :key="key" :label="item" :value="key" />
 						</el-select>
 					</SettingItem>

@@ -44,7 +44,7 @@ const updateSetting = () => {
 		<div class="feature-wrap">
 			<div class="feature-content">
 				<h2 class="title">{{ __('Restriction', 'accesswise') }}</h2>
-				<p class="description">{{ __('Lorem ipsum dolor sit amet consectetur. Purus interdum mi pellentesque nulla viverra pellentesque nulla consectetur.', 'accesswise') }}</p>
+				<p class="description">{{ __('Limit site access to authenticated members while keeping selected URLs publicly reachable.', 'accesswise') }}</p>
 				<div class="items-wrap">
 					<SettingItem :title="__('Private Website', 'accesswise')">
 						<el-checkbox-group class="setting-input" v-model="data.settings.restrictions.private_website" @change="changeSetting($event)">

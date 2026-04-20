@@ -8,11 +8,11 @@ const props = defineProps( {
 
 <template>
 	<div class="setting-wrap" :class="{ 'is-inline': isInline }">
-		<div class="setting-title">
-			<h3 v-if="title">{{ title }}</h3>
-			<p v-if="description">{{ description }}</p>
+		<div class="content">
+			<h3 class="title" v-if="title">{{ title }}</h3>
+			<p class="description" v-if="description">{{ description }}</p>
 		</div>
-		<div class="setting-input">
+		<div class="input-wrap">
 			<slot></slot>
 		</div>
 	</div>
@@ -28,12 +28,22 @@ const props = defineProps( {
 		@include flex(row, space-between, center);
 	}
 
-	.setting-title {
+	.content {
 		@include flex(column, flex-start, flex-start);
 		gap: 10px;
+
+		.title {
+			font-size: 15px;
+			font-weight: 600;
+		}
+
+		.description {
+			font-size: 14px;
+			font-weight: 400;
+		}
 	}
 
-	&:not(.is-inline) .setting-input {
+	&:not(.is-inline) .input-wrap {
 		width: 100%;
 	}
 }

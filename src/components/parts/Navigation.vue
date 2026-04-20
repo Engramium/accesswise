@@ -66,6 +66,10 @@ watch( route, () => {
 			background: #004685;
 		}
 
+		&:focus {
+			box-shadow: none;
+		}
+
 		&.active {
 			color: #fff;
 			background: #004685;

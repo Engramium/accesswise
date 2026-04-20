@@ -25,7 +25,7 @@ class Settings {
 			return $default_settings;
 		}
 
-		return $current_settings;
+		return $this->merge_settings( $default_settings, $current_settings );
 	}
 
 	public function update_settings( $data ) {
@@ -41,7 +41,7 @@ class Settings {
 
 	public function sanitize_inputs( $inputs ) {
 		$text_areas = ['public_website_contents'];
-		$booleans   = ['copy_protection', 'right_click', 'cp_text_selection', 'cp_exclude_inputs', 'cp_protect_no_js', 'rc_disable_images', 'rc_disable_links', 'rc_disable_dev_keys', 'rc_disable_drag_drop', 'rc_disable_left_click', 'rc_disable_scroll_img_mobile', 'rc_protect_no_js'];
+		$booleans   = ['copy_protection', 'right_click', 'cp_text_selection', 'cp_exclude_inputs', 'cp_protect_no_js', 'rc_disable_images', 'rc_disable_links', 'rc_disable_dev_keys', 'rc_disable_drag_drop', 'rc_disable_left_click', 'rc_disable_scroll_img_mobile', 'rc_protect_no_js', 'rc_enable_copyright', 'rc_enable_pasting'];
 		foreach ( $inputs as $key => &$value ) {
 			if ( is_array( $value ) || is_object( $value ) ) {
 				$value = $this->sanitize_inputs( $value );
@@ -90,6 +90,10 @@ class Settings {
 				'rc_disable_msg'               => 'Right click is disabled!',
 				'rc_protect_no_js'             => false,
 				'rc_no_js_msg'                 => 'Javascript is disabled!',
+				'rc_enable_copyright'          => false,
+				'rc_copyright_msg'             => '',
+				'rc_enable_pasting'            => false,
+				'rc_pasting_msg'               => '',
 				'rc_exclude_roles'             => ['administrator'],
 				'rc_protect_individual_posts'  => []
 			],
@@ -110,11 +114,37 @@ class Settings {
 			foreach ( $section_defaults as $key => $value ) {
 				if ( array_key_exists( $key, $input_data[$section] ) ) {
 					$filtered_data[$section][$key] = $input_data[$section][$key];
+				} elseif ( is_array( $value ) && ! $this->is_assoc_array( $value ) ) {
+					// Empty checkbox/multiselect arrays are omitted from FormData, so preserve explicit clears as [].
+					$filtered_data[$section][$key] = [];
 				}
 			}
 		}
 
 		return $filtered_data;
+	}
+
+	private function merge_settings( $defaults, $current ) {
+		foreach ( $defaults as $key => $value ) {
+			if ( ! array_key_exists( $key, $current ) ) {
+				$current[ $key ] = $value;
+				continue;
+			}
+
+			if ( is_array( $value ) && is_array( $current[ $key ] ) && $this->is_assoc_array( $value ) ) {
+				$current[ $key ] = $this->merge_settings( $value, $current[ $key ] );
+			}
+		}
+
+		return $current;
+	}
+
+	private function is_assoc_array( $array ) {
+		if ( [] === $array ) {
+			return false;
+		}
+
+		return array_keys( $array ) !== range( 0, count( $array ) - 1 );
 	}
 
 }

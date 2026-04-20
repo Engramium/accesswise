@@ -47,7 +47,7 @@ const updateSetting = () => {
 		<div class="feature-wrap">
 			<div class="feature-content">
 				<h2 class="title">{{ __('Protection', 'accesswise') }}</h2>
-				<p class="description">{{ __('Lorem ipsum dolor sit amet consectetur. Purus interdum mi pellentesque nulla viverra pellentesque nulla consectetur.', 'accesswise') }}</p>
+				<p class="description">{{ __('Protect content with copy and right-click controls, including per-role, per-post-type, and per-post targeting.', 'accesswise') }}</p>
 				<el-tabs v-model="currentTab" class="demo-tabs">
 					<el-tab-pane :label="__('Copy Protection', 'accesswise')" name="copy_protection">
 						<div class="items-wrap">
@@ -60,17 +60,17 @@ const updateSetting = () => {
 							</SettingItem>
 							<template v-if="data.settings.protections.copy_protection">
 								<SettingItem :title="__('Exclude Post Types:', 'accesswise')">
-									<el-select multiple class="m-2" placeholder="Exclude post types" size="large" v-model="data.settings.protections.cp_exclude_posts" @change="changeSetting($event)">
+									<el-select multiple filterable class="m-2" placeholder="Exclude post types" size="large" v-model="data.settings.protections.cp_exclude_posts" @change="changeSetting($event)">
 										<el-option v-for="(item, key) in data.postTypes" :key="key" :label="item.label" :value="key" />
 									</el-select>
 								</SettingItem>
 								<SettingItem :title="__('Exclude Individual Posts:', 'accesswise')">
-									<el-select multiple class="m-2" placeholder="Exclude individual posts" size="large" v-model="data.settings.protections.cp_exclude_individual_posts" @change="changeSetting($event)">
-										<el-option v-for="(item, key) in data.postTypes" :key="key" :label="item.label" :value="key" />
+									<el-select multiple filterable class="m-2" :placeholder="__('Exclude individual posts', 'accesswise')" size="large" v-model="data.settings.protections.cp_exclude_individual_posts" @change="changeSetting($event)">
+										<el-option v-for="(item, key) in data.individualPosts" :key="key" :label="item" :value="key" />
 									</el-select>
 								</SettingItem>
 								<SettingItem :title="__('Exclude User Roles:', 'accesswise')">
-									<el-select multiple class="m-2" placeholder="Exclude user roles" size="large" v-model="data.settings.protections.cp_exclude_roles" @change="changeSetting($event)">
+									<el-select multiple filterable class="m-2" placeholder="Exclude user roles" size="large" v-model="data.settings.protections.cp_exclude_roles" @change="changeSetting($event)">
 										<el-option v-for="(item, key) in data.userRoles" :key="key" :label="item" :value="key" />
 									</el-select>
 								</SettingItem>
@@ -96,14 +96,14 @@ const updateSetting = () => {
 							</template>
 						</div>
 					</el-tab-pane>
-					<el-tab-pane label="Disable Right Click" name="disable_right_click">
+					<el-tab-pane :label="__('Disable Right Click', 'accesswise')" name="disable_right_click">
 						<div class="items-wrap">
-							<SettingItem title="Disable Right Click" description="Regardless of this setting, this will not be impact for the Administrators." :isInline="true">
+							<SettingItem :title="__('Disable Right Click', 'accesswise')" :description="__('Regardless of this setting, this will not be impact for the Administrators.', 'accesswise')" :isInline="true">
 								<el-switch class="setting-input" v-model="data.settings.protections.right_click" size="large" @change="changeSetting($event)" />
 							</SettingItem>
 							<template v-if="data.settings.protections.right_click">
 								<SettingItem :title="__('Exclude Post Types:', 'accesswise')">
-									<el-select multiple class="m-2" placeholder="Exclude post types" size="large" v-model="data.settings.protections.rc_exclude_posts" @change="changeSetting($event)">
+									<el-select multiple filterable class="m-2" placeholder="Exclude post types" size="large" v-model="data.settings.protections.rc_exclude_posts" @change="changeSetting($event)">
 										<el-option v-for="(item, key) in data.postTypes" :key="key" :label="item.label" :value="key" />
 									</el-select>
 								</SettingItem>
@@ -155,14 +155,26 @@ const updateSetting = () => {
 								<SettingItem v-if="data.settings.protections.rc_protect_no_js" :title="__('Message while Javascript is disabled', 'accesswise')">
 									<el-input v-model="data.settings.protections.rc_no_js_msg" @input="saveWrittenMessage" size="large" :placeholder="__('Message while Javascript is disabled', 'accesswise')"></el-input>
 								</SettingItem>
+								<SettingItem :title="__('Enable Copyright text', 'accesswise')">
+									<el-checkbox class="setting-input" v-model="data.settings.protections.rc_enable_copyright" @change="changeSetting($event)" :label="__('Yes, enable Copyright text', 'accesswise')" value="true" />
+								</SettingItem>
+								<SettingItem v-if="data.settings.protections.rc_enable_copyright" :title="__('Copyright text', 'accesswise')">
+									<el-input v-model="data.settings.protections.rc_copyright_msg" @input="saveWrittenMessage" size="large" :placeholder="__('Copyright text', 'accesswise')"></el-input>
+								</SettingItem>
+								<SettingItem :title="__('Enable pasting custom text', 'accesswise')">
+									<el-checkbox class="setting-input" v-model="data.settings.protections.rc_enable_pasting" @change="changeSetting($event)" :label="__('Yes, enable pasting custom text', 'accesswise')" value="true" />
+								</SettingItem>
+								<SettingItem v-if="data.settings.protections.rc_enable_pasting" :title="__('Pasting custom text', 'accesswise')">
+									<el-input v-model="data.settings.protections.rc_pasting_msg" @input="saveWrittenMessage" size="large" :placeholder="__('Pasting custom text', 'accesswise')"></el-input>
+								</SettingItem>
 								<SettingItem :title="__('Exclude User Roles:', 'accesswise')">
-									<el-select multiple class="m-2" placeholder="Exclude user roles" size="large" v-model="data.settings.protections.rc_exclude_roles" @change="changeSetting($event)">
+									<el-select multiple filterable class="m-2" placeholder="Exclude user roles" size="large" v-model="data.settings.protections.rc_exclude_roles" @change="changeSetting($event)">
 										<el-option v-for="(item, key) in data.userRoles" :key="key" :label="item" :value="key" />
 									</el-select>
 								</SettingItem>
 								<SettingItem :title="__('Protect only specified Individual Posts:', 'accesswise')">
-									<el-select multiple class="m-2" placeholder="Protect only specified individual posts" size="large" v-model="data.settings.protections.rc_protect_individual_posts" @change="changeSetting($event)">
-										<el-option v-for="(item, key) in data.postTypes" :key="key" :label="item.label" :value="key" />
+									<el-select multiple filterable class="m-2" :placeholder="__('Protect only specified individual posts', 'accesswise')" size="large" v-model="data.settings.protections.rc_protect_individual_posts" @change="changeSetting($event)">
+										<el-option v-for="(item, key) in data.individualPosts" :key="key" :label="item" :value="key" />
 									</el-select>
 								</SettingItem>
 							</template>

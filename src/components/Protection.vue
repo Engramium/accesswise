@@ -1,46 +1,12 @@
 <script setup>
 import { ref } from 'vue';
-import { useDebounceFn } from "@vueuse/core";
 import { data, fn } from "../utils/data";
 import SettingItem from './parts/SettingItem.vue';
 
 const currentTab = ref( 'copy_protection' );
 
-const changeSetting = () => {
-	updateSetting();
-};
-
-const saveWrittenMessage = useDebounceFn( () => {
-	updateSetting();
-}, 1000 );
-
-const updateSetting = () => {
-	const res = fn.fetchAdminAjax( accesswise.admin_ajax, "post", {
-		action: "accesswise_update_settings",
-		settings: data.settings,
-		nonce: accesswise.nonce,
-	} );
-
-	let msg = wp.i18n.__( 'Settings have been successfully updated.', 'accesswise' );
-
-	res.then( ( response ) => {
-		if ( response.status ) {
-			ElNotification( {
-				title: wp.i18n.__( 'Success', 'accesswise' ),
-				message: msg,
-				type: "success",
-				offset: 50,
-			} );
-		} else {
-			ElNotification( {
-				title: wp.i18n.__( 'Error', 'accesswise' ),
-				message: response.msg,
-				type: "error",
-				offset: 50,
-			} );
-		}
-	} );
-};
+const { updateSetting, saveWrittenMessage } = fn.useSettingsUpdater( data );
+const changeSetting = updateSetting;
 </script>
 <template>
 	<div v-if="data.settings != null && data.pages != null" class="settings-wrap">

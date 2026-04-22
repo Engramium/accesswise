@@ -74,10 +74,10 @@ class RegisterAssets {
 	 * @since 1.0.0
 	 */
 	public function get_scripts() {
-		$env = Helper::instance()->read_env_file();
+		$env  = Helper::instance()->read_env_file();
+		$port = intval( Helper::instance()->get_env( 'VITE_PORT', 4000 ) );
 
-		if ( ! empty( $env ) ) {
-			$port         = intval( isset( $env['VITE_PORT'] ) ? $env['VITE_PORT'] : 4000 );
+		if ( ! empty( $env ) && ! empty( $port ) ) {
 			$main_src     = "http://localhost:{$port}/src/main.js";
 			$frontend_src = "http://localhost:{$port}/src/frontend/main.js";
 			$version      = null; // No version query string — let Vite handle cache busting via HMR
@@ -115,8 +115,9 @@ class RegisterAssets {
 	 * @since 1.0.0
 	 */
 	public function get_styles() {
-		$env = Helper::instance()->read_env_file();
-		if ( ! empty( $env ) ) {
+		$env  = Helper::instance()->read_env_file();
+		$port = intval( Helper::instance()->get_env( 'VITE_PORT', 4000 ) );
+		if ( ! empty( $env ) && ! empty( $port ) ) {
 			return [];
 		}
 

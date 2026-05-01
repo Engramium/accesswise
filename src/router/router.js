@@ -1,6 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import Welcome from "../components/Welcome.vue";
-import Settings from "../components/Settings.vue";
 import General from "../components/General.vue";
 import SettingsLayout from "../components/SettingsLayout.vue";
 import Protection from "../components/Protection.vue";

@@ -75,11 +75,13 @@ class Redirection {
 			}
 
 			global $wp;
-			$request = $wp->request;
+			$request      = $wp->request;
+			$request_uri  = isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
+			$current_url  = home_url( $request_uri );
+			$request_path = trim( (string) wp_parse_url( $request_uri, PHP_URL_PATH ), '/' );
 
 			foreach ( $array_pub_contents as $content ) {
-				$content = str_replace('/', '', $content);
-				if ( strpos( $request, $content ) !== false ) {
+				if ( $this->is_public_content_match( $content, $current_url, $request, $request_path ) ) {
 					$redirect = false;
 					break;
 				}
@@ -90,5 +92,38 @@ class Redirection {
 				exit();
 			}
 		}
+	}
+
+	private function is_public_content_match( $content, $current_url, $request, $request_path ) {
+		$content = trim( (string) $content );
+
+		if ( '' === $content ) {
+			return false;
+		}
+
+		if ( filter_var( $content, FILTER_VALIDATE_URL ) ) {
+			$normalized_content_url = untrailingslashit( $content );
+			$normalized_current_url = untrailingslashit( $current_url );
+
+			if ( 0 === strpos( $normalized_current_url, $normalized_content_url ) ) {
+				return true;
+			}
+
+			$content_path = trim( (string) wp_parse_url( $content, PHP_URL_PATH ), '/' );
+
+			if ( '' !== $content_path ) {
+				return false !== strpos( $request, $content_path ) || false !== strpos( $request_path, $content_path );
+			}
+
+			return false;
+		}
+
+		$normalized_content = trim( (string) wp_parse_url( $content, PHP_URL_PATH ), '/' );
+
+		if ( '' === $normalized_content ) {
+			$normalized_content = trim( $content, '/' );
+		}
+
+		return false !== strpos( $request, $normalized_content ) || false !== strpos( $request_path, $normalized_content );
 	}
 }

@@ -19,8 +19,8 @@ const changeSetting = updateSetting;
 							</div>
 						</el-checkbox-group>
 						<div v-if="data.settings.restrictions.private_website?.includes('logged_in_users')" class="setting-input">
-							<el-input v-model="data.settings.restrictions.public_website_contents" @input="saveWrittenMessage" :autosize="{ minRows: 4, maxRows: 10 }" type="textarea" placeholder="e.g. /groups/" />
-							<label>{{ __('Enter URLs or URI fragments (e.g. /groups/) to remain publicly visible always. Enter one URL or URI per line.', 'accesswise') }}</label>
+							<el-input v-model="data.settings.restrictions.public_website_contents" @input="saveWrittenMessage" :autosize="{ minRows: 4, maxRows: 10 }" type="textarea" placeholder="e.g. https://example.com/groups/ or /groups/" />
+							<label>{{ __('Enter full URLs, URL paths, or URI fragments (e.g. https://example.com/groups/ or /groups/) to remain publicly visible always. Enter one value per line.', 'accesswise') }}</label>
 						</div>
 					</SettingItem>
 				</div>

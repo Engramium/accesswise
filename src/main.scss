@@ -22,23 +22,30 @@
 		cursor: pointer;
 	}
 
-	.el-input__inner {
-		border: none;
-
-		&:focus {
+	.el-select__selection {
+		input[type="text"] {
+			border: none;
 			outline: none;
 			box-shadow: none;
+			border-color: transparent;
+			background-color: transparent;
+			padding: 0;
 		}
+	}
+
+	.el-input__inner {
+		border: none;
+		outline: none;
+		box-shadow: none;
+		padding: 0;
 	}
 
 	#accesswise-dashboard-app {
 		.el-input__inner {
 			border: none;
-
-			&:focus {
-				outline: none;
-				box-shadow: none;
-			}
+			outline: none;
+			box-shadow: none;
+			padding: 0;
 		}
 	}
 

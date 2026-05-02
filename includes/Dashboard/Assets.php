@@ -5,6 +5,8 @@ namespace Engramium\Accesswise\Dashboard;
 // If this file is called directly, abort.
 defined( 'ABSPATH' ) || exit;
 
+use Engramium\Accesswise\App\Helper;
+
 /**
  * Dashboard related assets manager class
  *
@@ -79,15 +81,15 @@ class Assets {
 	 * @since 1.0.0
 	 */
 	public function load_script_as_module( $tag, $handle, $src ) {
-		if ( ! in_array( $handle, ['accesswise-dashboard', 'accesswise-frontend'], true ) ) {
-			return $tag;
+		if ( 'accesswise-dashboard' === $handle ) {
+			$tag = '<script type="module" src="' . esc_url( $src ) . '"></script>';
 		}
 
-		$tag = '<script type="module" src="' . esc_url( $src ) . '"></script>';
-		if ( strpos( $src, 'localhost:' ) !== false ) {
-			$tag = '<script type="module" crossorigin src="' . esc_url( $src ) . '"></script>' . "\n";
+		$port = intval( Helper::instance()->get_env( 'VITE_PORT' ) );
+		if ( 'accesswise-frontend' === $handle && ! empty( $port ) ) {
+			$tag = '<script crossorigin src="' . esc_url( $src ) . '"></script>' . "\n";
 		}
-		
+
 		return $tag;
 	}
 }

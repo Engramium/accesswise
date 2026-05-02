@@ -75,7 +75,7 @@ class RegisterAssets {
 	 */
 	public function get_scripts() {
 		$env  = Helper::instance()->read_env_file();
-		$port = intval( Helper::instance()->get_env( 'VITE_PORT', 4000 ) );
+		$port = intval( Helper::instance()->get_env( 'VITE_PORT' ) );
 
 		if ( ! empty( $env ) && ! empty( $port ) ) {
 			$main_src     = "http://localhost:{$port}/src/main.js";
@@ -116,7 +116,7 @@ class RegisterAssets {
 	 */
 	public function get_styles() {
 		$env  = Helper::instance()->read_env_file();
-		$port = intval( Helper::instance()->get_env( 'VITE_PORT', 4000 ) );
+		$port = intval( Helper::instance()->get_env( 'VITE_PORT' ) );
 		if ( ! empty( $env ) && ! empty( $port ) ) {
 			return [];
 		}

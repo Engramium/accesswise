@@ -47,8 +47,8 @@ function selectFilesWithPatterns ( patterns, directoryPath ) {
 const directoryPath = './';
 const patterns = [
 	'./dist/assets/**/*',
-	'./dist/assets/icons/**/*',
-	'./dist/assets/logo/**/*',
+	'!./dist/icons/*',
+	'!./dist/logo/*',
 	'./i18n/**/*',
 	'./includes/**/*',
 	'./public/**/*',

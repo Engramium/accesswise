@@ -1,6 +1,6 @@
-( function () {
+(function($) {
 	protection();
-} )();
+})(jQuery);
 
 function protection () {
 	if ( accesswise.copyProtection && shouldApplyCopyProtection() ) {
@@ -126,13 +126,13 @@ function shouldDisableContextMenu ( e ) {
 		return false;
 	}
 
-	const target = e.target;
+	const target = getClosestCapableTarget( e.target );
 
 	if ( accesswise.rightClickDisableImages && isImageTarget( target ) ) {
 		return true;
 	}
 
-	if ( accesswise.rightClickDisableLinks && target.closest( "a" ) ) {
+	if ( accesswise.rightClickDisableLinks && target && target.closest( "a" ) ) {
 		return true;
 	}
 
@@ -224,14 +224,15 @@ function getTargetText ( target ) {
 
 function matchesExcludedSelector ( target ) {
 	const selectors = accesswise.copyProtectionExcludeSelectors || [];
+	const element = getClosestCapableTarget( target );
 
-	if ( !selectors.length || !target.closest ) {
+	if ( !selectors.length || !element || !element.closest ) {
 		return false;
 	}
 
 	return selectors.some( function ( selector ) {
 		try {
-			return Boolean( target.closest( selector ) );
+			return Boolean( element.closest( selector ) );
 		} catch ( error ) {
 			return false;
 		}
@@ -239,13 +240,31 @@ function matchesExcludedSelector ( target ) {
 }
 
 function isEditableTarget ( target ) {
+	const element = getClosestCapableTarget( target );
 	return Boolean(
-		target.closest( "input, textarea, select, [contenteditable=''], [contenteditable='true']" )
+		element && element.closest( "input, textarea, select, [contenteditable=''], [contenteditable='true']" )
 	);
 }
 
 function isImageTarget ( target ) {
-	return Boolean( target.closest( "img, picture, figure, svg, canvas" ) );
+	const element = getClosestCapableTarget( target );
+	return Boolean( element && element.closest( "img, picture, figure, svg, canvas" ) );
+}
+
+function getClosestCapableTarget ( target ) {
+	if ( !target ) {
+		return null;
+	}
+
+	if ( typeof target.closest === "function" ) {
+		return target;
+	}
+
+	if ( target.parentElement && typeof target.parentElement.closest === "function" ) {
+		return target.parentElement;
+	}
+
+	return null;
 }
 
 function shouldBlockDevShortcut ( e ) {

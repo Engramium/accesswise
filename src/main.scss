@@ -1,56 +1,78 @@
-@import './scss/_variables';
-@import './scss/_mixins';
-
 .toplevel_page_accesswise-settings {
-  #accesswise-dashboard-app {
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    p {
-      margin: 0;
-    }
-  
-    img {
-      width: 100%;
-    }
-  
-    .icon {
-      height: 25px;
-      width: 25px;
-    }
-  
-    .pointer {
-      cursor: pointer;
-    }
-  }
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	p {
+		margin: 0;
+	}
 
-  #wpwrap {
-    background-color: #F8FAFC;
-  }
+	img {
+		width: 100%;
+	}
 
-  #wpcontent {
-    padding-left: 0;
-  }
+	.icon {
+		height: 25px;
+		width: 25px;
+	}
 
-  #wpbody-content {
-    padding-bottom: unset;
-  }
+	.pointer {
+		cursor: pointer;
+	}
 
-  #accesswise-dashboard-app {
-    height: 100%;
-  }
+	.el-select__selection {
+		input[type="text"] {
+			border: none;
+			outline: none;
+			box-shadow: none;
+			border-color: transparent;
+			background-color: transparent;
+			padding: 0;
+		}
+	}
 
-  .wrap {
-    background-color: #F8FAFC;
-    margin: 0;
-    // height: calc(100vh - 32px);
-    // min-height: 1080px;
-  }
+	.el-input__inner {
+		border: none;
+		outline: none;
+		box-shadow: none;
+		padding: 0;
+	}
 
-  #wpfooter {
-    display: none;
-  }
+	#accesswise-dashboard-app {
+		.el-input__inner {
+			border: none;
+			outline: none;
+			box-shadow: none;
+			padding: 0;
+		}
+	}
+
+	#wpwrap {
+		background-color: #F8F9F8;
+	}
+
+	#wpcontent {
+		padding-left: 0;
+	}
+
+	#wpbody-content {
+		padding-bottom: unset;
+	}
+
+	#accesswise-dashboard-app {
+		height: 100%;
+	}
+
+	.wrap {
+		background-color: #F8F9F8;
+		margin: 0;
+		// height: calc(100vh - 32px);
+		// min-height: 1080px;
+	}
+
+	#wpfooter {
+		display: none;
+	}
 }

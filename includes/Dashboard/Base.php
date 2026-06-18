@@ -13,16 +13,16 @@ defined( 'ABSPATH' ) || exit;
  */
 class Base {
 
-    use \Engramium\Accesswise\Traits\Singleton;
-    
-    /**
-     * initialization function
-     *
-     * @return void
-     * @since 1.0.0
-     */
-    public function init() {
-        AdminMenu::instance()->init();
-        Assets::instance()->init();
-    }
+	use \Engramium\Accesswise\Traits\Singleton;
+
+	/**
+	 * initialization function
+	 *
+	 * @return void
+	 * @since 1.0.0
+	 */
+	public function init() {
+		AdminMenu::instance()->init();
+		Assets::instance()->init();
+	}
 }

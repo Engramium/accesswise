@@ -1,6 +1,6 @@
 {
   "name": "accesswise",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "type": "module",
   "description": "Power to restrict your website and it's content via Age Gate, Force Login, Disable Right click",
   "scripts": {
@@ -30,19 +30,19 @@
     "> .5%"
   ],
   "dependencies": {
-    "element-plus": "^2.5.5",
-    "vue": "^3.3.11",
-    "vue-router": "^4.3.0"
+    "element-plus": "^2.13.7",
+    "vue": "^3.5.32",
+    "vue-router": "^5.0.4"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^4.5.2",
-    "archiver": "^7.0.0",
-    "autoprefixer": "^10.4.17",
-    "eslint": "^8.55.0",
-    "postcss": "^8.4.35",
-    "sass": "^1.71.0",
-    "unplugin-auto-import": "^0.17.5",
-    "unplugin-vue-components": "^0.26.0",
-    "vite": "^5.0.8"
+    "@vitejs/plugin-vue": "^6.0.6",
+    "archiver": "^7.0.1",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.25.0",
+    "postcss": "^8.5.3",
+    "sass": "^1.86.3",
+    "unplugin-auto-import": "^21.0.0",
+    "unplugin-vue-components": "^32.0.0",
+    "vite": "^8.0.8"
   }
 }
